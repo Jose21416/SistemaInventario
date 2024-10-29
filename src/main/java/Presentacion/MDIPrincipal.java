@@ -4,6 +4,15 @@
  */
 package Presentacion;
 
+import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.Timer;
+
 /**
  *
  * @author joset
@@ -15,7 +24,76 @@ public class MDIPrincipal extends javax.swing.JFrame {
      */
     public MDIPrincipal() {
         initComponents();
+        
+        ImageIcon icFacturas = new ImageIcon(getClass().getClassLoader().getResource("Imagenes/Facturas.png"));
+        Icon iconoFac = new ImageIcon(icFacturas.getImage().getScaledInstance(65, 65, Image.SCALE_SMOOTH));
+        btnFacturas.setIcon(iconoFac);
+        
+        ImageIcon icRecibos = new ImageIcon(getClass().getClassLoader().getResource("Imagenes/Recibos.png"));
+        Icon iconoRec = new ImageIcon(icRecibos.getImage().getScaledInstance(60, 60, Image.SCALE_SMOOTH));
+        btnRecibos.setIcon(iconoRec);
+        
+        ImageIcon icAlmacen = new ImageIcon(getClass().getClassLoader().getResource("Imagenes/Almacen.png"));
+        Icon iconoAlm = new ImageIcon(icAlmacen.getImage().getScaledInstance(60, 60, Image.SCALE_SMOOTH));
+        btnAlmacen.setIcon(iconoAlm);
+        
+        ImageIcon mConsultas = new ImageIcon(getClass().getClassLoader().getResource("Imagenes/Busquedas.png"));
+        Icon icConsultas = new ImageIcon(mConsultas.getImage().getScaledInstance(32, 32, Image.SCALE_SMOOTH));
+        menuConsultas.setIcon(icConsultas);
+        
+        ImageIcon imenuDB = new ImageIcon(getClass().getClassLoader().getResource("Imagenes/Almacen.png"));
+        Icon icDb = new ImageIcon(imenuDB.getImage().getScaledInstance(32, 32, Image.SCALE_SMOOTH));
+        menuDB.setIcon(icDb);
+        
+        ImageIcon imHerramientas = new ImageIcon(getClass().getClassLoader().getResource("Imagenes/opciones.png"));
+        Icon icHerramientas = new ImageIcon(imHerramientas.getImage().getScaledInstance(32, 32, Image.SCALE_SMOOTH));
+        menuHerramientas.setIcon(icHerramientas);
+        
+        ImageIcon imItemUs = new ImageIcon(getClass().getClassLoader().getResource("Imagenes/Usuarios.png"));
+        Icon icUs = new ImageIcon(imItemUs.getImage().getScaledInstance(26, 26, Image.SCALE_SMOOTH));
+        ItemUsuarios.setIcon(icUs);
+        
+        ImageIcon imInfo = new ImageIcon(getClass().getClassLoader().getResource("Imagenes/info.png"));
+        Icon icInfo = new ImageIcon(imInfo.getImage().getScaledInstance(26, 26, Image.SCALE_SMOOTH));
+        ItemInfo.setIcon(icInfo);
+        
+        ImageIcon imItemDB = new ImageIcon(getClass().getClassLoader().getResource("Imagenes/Restaurar.png"));
+        Icon icItemDB = new ImageIcon(imItemDB.getImage().getScaledInstance(26, 26, Image.SCALE_SMOOTH));
+        ItemDB.setIcon(icItemDB);
+        
+        ImageIcon imItemReportes = new ImageIcon(getClass().getClassLoader().getResource("Imagenes/FacturasIcono.png"));
+        Icon icReportes = new ImageIcon(imItemReportes.getImage().getScaledInstance(26, 26, Image.SCALE_SMOOTH));
+        ItemReportes.setIcon(icReportes);
+        
+        ImageIcon imDetFac = new ImageIcon(getClass().getClassLoader().getResource("Imagenes/DFacturas.png"));
+        Icon icDetFac = new ImageIcon(imDetFac.getImage().getScaledInstance(26, 26, Image.SCALE_SMOOTH));
+        ItemDFacturas.setIcon(icDetFac);
+        
+        ImageIcon imDetRec = new ImageIcon(getClass().getClassLoader().getResource("Imagenes/Recibos.png"));
+        Icon icDetRec = new ImageIcon(imDetRec.getImage().getScaledInstance(26, 26, Image.SCALE_SMOOTH));
+        ItemDRecibos.setIcon(icDetRec);
+        
+        timer.start();
     }
+    
+    Timer timer = new Timer(1000, new ActionListener(){
+    
+            public void actionPerformed(ActionEvent e){
+                Calendar cal = new GregorianCalendar ();
+                int hh, mm, ss, dia, mes, aa;
+                hh = cal.get(Calendar.HOUR_OF_DAY);
+                ss = cal.get(Calendar.SECOND);
+                mm = cal.get(Calendar.MINUTE);
+                
+                dia = cal.get(Calendar.DAY_OF_MONTH);
+                mes = cal.get(Calendar.MONTH);
+                aa = cal.get(Calendar.YEAR);
+                
+                lblHora.setText(hh+":"+mm+":"+ss);
+                lblFecha.setText(dia+"/"+(mes+1)+"/"+aa);
+                
+            }          
+    });
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -26,21 +104,181 @@ public class MDIPrincipal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
+        btnFacturas = new javax.swing.JButton();
+        btnRecibos = new javax.swing.JButton();
+        btnAlmacen = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        lblUsuario = new javax.swing.JLabel();
+        lblHora = new javax.swing.JLabel();
+        lblFecha = new javax.swing.JLabel();
+        dpnEscritorio = new javax.swing.JDesktopPane();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        menuConsultas = new javax.swing.JMenu();
+        ItemReportes = new javax.swing.JMenu();
+        ItemDFacturas = new javax.swing.JMenu();
+        ItemDRecibos = new javax.swing.JMenu();
+        menuDB = new javax.swing.JMenu();
+        ItemDB = new javax.swing.JMenu();
+        menuHerramientas = new javax.swing.JMenu();
+        ItemUsuarios = new javax.swing.JMenu();
+        ItemInfo = new javax.swing.JMenu();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Opciones"));
+
+        btnFacturas.setText("Facturas");
+
+        btnRecibos.setText("Recibos");
+        btnRecibos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRecibosActionPerformed(evt);
+            }
+        });
+
+        btnAlmacen.setText("Almacén");
+        btnAlmacen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAlmacenActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setText("Usuario:");
+
+        jLabel2.setText("Hora:");
+
+        jLabel3.setText("Fecha:");
+
+        lblUsuario.setText("jLabel4");
+
+        lblHora.setText("jLabel5");
+
+        lblFecha.setText("jLabel6");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnAlmacen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnRecibos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnFacturas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(lblHora, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblFecha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(0, 38, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(24, 24, 24)
+                .addComponent(btnFacturas, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnRecibos, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnAlmacen, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(81, 81, 81)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(lblUsuario))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(lblHora))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(lblFecha))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout dpnEscritorioLayout = new javax.swing.GroupLayout(dpnEscritorio);
+        dpnEscritorio.setLayout(dpnEscritorioLayout);
+        dpnEscritorioLayout.setHorizontalGroup(
+            dpnEscritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 777, Short.MAX_VALUE)
+        );
+        dpnEscritorioLayout.setVerticalGroup(
+            dpnEscritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
+        menuConsultas.setText("Consultas");
+
+        ItemReportes.setText("Reportes");
+        menuConsultas.add(ItemReportes);
+
+        ItemDFacturas.setText("Detalle de facturas");
+        menuConsultas.add(ItemDFacturas);
+
+        ItemDRecibos.setText("Detalle de recibos");
+        menuConsultas.add(ItemDRecibos);
+
+        jMenuBar1.add(menuConsultas);
+
+        menuDB.setText("Base de datos");
+
+        ItemDB.setText("Respaldar / Restaurar");
+        menuDB.add(ItemDB);
+
+        jMenuBar1.add(menuDB);
+
+        menuHerramientas.setText("Herramientas");
+
+        ItemUsuarios.setText("Usuarios");
+        menuHerramientas.add(ItemUsuarios);
+
+        ItemInfo.setText("Información");
+        menuHerramientas.add(ItemInfo);
+
+        jMenuBar1.add(menuHerramientas);
+
+        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(dpnEscritorio)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(dpnEscritorio)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnAlmacenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlmacenActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnAlmacenActionPerformed
+
+    private void btnRecibosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRecibosActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnRecibosActionPerformed
 
     /**
      * @param args the command line arguments
@@ -78,5 +316,26 @@ public class MDIPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenu ItemDB;
+    private javax.swing.JMenu ItemDFacturas;
+    private javax.swing.JMenu ItemDRecibos;
+    private javax.swing.JMenu ItemInfo;
+    private javax.swing.JMenu ItemReportes;
+    private javax.swing.JMenu ItemUsuarios;
+    private javax.swing.JButton btnAlmacen;
+    private javax.swing.JButton btnFacturas;
+    private javax.swing.JButton btnRecibos;
+    private javax.swing.JDesktopPane dpnEscritorio;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel lblFecha;
+    private javax.swing.JLabel lblHora;
+    private javax.swing.JLabel lblUsuario;
+    private javax.swing.JMenu menuConsultas;
+    private javax.swing.JMenu menuDB;
+    private javax.swing.JMenu menuHerramientas;
     // End of variables declaration//GEN-END:variables
 }

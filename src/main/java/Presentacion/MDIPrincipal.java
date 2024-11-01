@@ -11,6 +11,7 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 import javax.swing.Timer;
 
 /**
@@ -25,6 +26,8 @@ public class MDIPrincipal extends javax.swing.JFrame {
     public MDIPrincipal() {
         initComponents();
         
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
+       
         ImageIcon icFacturas = new ImageIcon(getClass().getClassLoader().getResource("Imagenes/Facturas.png"));
         Icon iconoFac = new ImageIcon(icFacturas.getImage().getScaledInstance(65, 65, Image.SCALE_SMOOTH));
         btnFacturas.setIcon(iconoFac);
@@ -48,11 +51,11 @@ public class MDIPrincipal extends javax.swing.JFrame {
         ImageIcon imHerramientas = new ImageIcon(getClass().getClassLoader().getResource("Imagenes/opciones.png"));
         Icon icHerramientas = new ImageIcon(imHerramientas.getImage().getScaledInstance(32, 32, Image.SCALE_SMOOTH));
         menuHerramientas.setIcon(icHerramientas);
-        
+     
         ImageIcon imItemUs = new ImageIcon(getClass().getClassLoader().getResource("Imagenes/Usuarios.png"));
         Icon icUs = new ImageIcon(imItemUs.getImage().getScaledInstance(26, 26, Image.SCALE_SMOOTH));
         ItemUsuarios.setIcon(icUs);
-        
+       
         ImageIcon imInfo = new ImageIcon(getClass().getClassLoader().getResource("Imagenes/info.png"));
         Icon icInfo = new ImageIcon(imInfo.getImage().getScaledInstance(26, 26, Image.SCALE_SMOOTH));
         ItemInfo.setIcon(icInfo);
@@ -72,7 +75,7 @@ public class MDIPrincipal extends javax.swing.JFrame {
         ImageIcon imDetRec = new ImageIcon(getClass().getClassLoader().getResource("Imagenes/Recibos.png"));
         Icon icDetRec = new ImageIcon(imDetRec.getImage().getScaledInstance(26, 26, Image.SCALE_SMOOTH));
         ItemDRecibos.setIcon(icDetRec);
-        
+      
         timer.start();
     }
     
@@ -117,20 +120,25 @@ public class MDIPrincipal extends javax.swing.JFrame {
         dpnEscritorio = new javax.swing.JDesktopPane();
         jMenuBar1 = new javax.swing.JMenuBar();
         menuConsultas = new javax.swing.JMenu();
-        ItemReportes = new javax.swing.JMenu();
-        ItemDFacturas = new javax.swing.JMenu();
-        ItemDRecibos = new javax.swing.JMenu();
+        ItemReportes = new javax.swing.JMenuItem();
+        ItemDFacturas = new javax.swing.JMenuItem();
+        ItemDRecibos = new javax.swing.JMenuItem();
         menuDB = new javax.swing.JMenu();
-        ItemDB = new javax.swing.JMenu();
+        ItemDB = new javax.swing.JMenuItem();
         menuHerramientas = new javax.swing.JMenu();
-        ItemUsuarios = new javax.swing.JMenu();
-        ItemInfo = new javax.swing.JMenu();
+        ItemUsuarios = new javax.swing.JMenuItem();
+        ItemInfo = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Opciones"));
 
         btnFacturas.setText("Facturas");
+        btnFacturas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFacturasActionPerformed(evt);
+            }
+        });
 
         btnRecibos.setText("Recibos");
         btnRecibos.addActionListener(new java.awt.event.ActionListener() {
@@ -239,6 +247,11 @@ public class MDIPrincipal extends javax.swing.JFrame {
         menuHerramientas.setText("Herramientas");
 
         ItemUsuarios.setText("Usuarios");
+        ItemUsuarios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ItemUsuariosActionPerformed(evt);
+            }
+        });
         menuHerramientas.add(ItemUsuarios);
 
         ItemInfo.setText("Información");
@@ -280,6 +293,18 @@ public class MDIPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnRecibosActionPerformed
 
+    private void btnFacturasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFacturasActionPerformed
+        
+    }//GEN-LAST:event_btnFacturasActionPerformed
+
+    private void ItemUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ItemUsuariosActionPerformed
+        // TODO add your handling code here:
+        FrmUsuarios misUsuarios = new FrmUsuarios();
+        dpnEscritorio.add(misUsuarios);
+        misUsuarios.setSize(dpnEscritorio.getSize());
+        misUsuarios.setVisible(true);
+    }//GEN-LAST:event_ItemUsuariosActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -306,6 +331,9 @@ public class MDIPrincipal extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(MDIPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -316,12 +344,12 @@ public class MDIPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenu ItemDB;
-    private javax.swing.JMenu ItemDFacturas;
-    private javax.swing.JMenu ItemDRecibos;
-    private javax.swing.JMenu ItemInfo;
-    private javax.swing.JMenu ItemReportes;
-    private javax.swing.JMenu ItemUsuarios;
+    private javax.swing.JMenuItem ItemDB;
+    private javax.swing.JMenuItem ItemDFacturas;
+    private javax.swing.JMenuItem ItemDRecibos;
+    private javax.swing.JMenuItem ItemInfo;
+    private javax.swing.JMenuItem ItemReportes;
+    private javax.swing.JMenuItem ItemUsuarios;
     private javax.swing.JButton btnAlmacen;
     private javax.swing.JButton btnFacturas;
     private javax.swing.JButton btnRecibos;

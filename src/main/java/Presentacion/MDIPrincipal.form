@@ -9,21 +9,21 @@
             <Property name="text" type="java.lang.String" value="Consultas"/>
           </Properties>
           <SubComponents>
-            <Menu class="javax.swing.JMenu" name="ItemReportes">
+            <MenuItem class="javax.swing.JMenuItem" name="ItemReportes">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Reportes"/>
               </Properties>
-            </Menu>
-            <Menu class="javax.swing.JMenu" name="ItemDFacturas">
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="ItemDFacturas">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Detalle de facturas"/>
               </Properties>
-            </Menu>
-            <Menu class="javax.swing.JMenu" name="ItemDRecibos">
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="ItemDRecibos">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Detalle de recibos"/>
               </Properties>
-            </Menu>
+            </MenuItem>
           </SubComponents>
         </Menu>
         <Menu class="javax.swing.JMenu" name="menuDB">
@@ -31,11 +31,11 @@
             <Property name="text" type="java.lang.String" value="Base de datos"/>
           </Properties>
           <SubComponents>
-            <Menu class="javax.swing.JMenu" name="ItemDB">
+            <MenuItem class="javax.swing.JMenuItem" name="ItemDB">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Respaldar / Restaurar"/>
               </Properties>
-            </Menu>
+            </MenuItem>
           </SubComponents>
         </Menu>
         <Menu class="javax.swing.JMenu" name="menuHerramientas">
@@ -43,16 +43,19 @@
             <Property name="text" type="java.lang.String" value="Herramientas"/>
           </Properties>
           <SubComponents>
-            <Menu class="javax.swing.JMenu" name="ItemUsuarios">
+            <MenuItem class="javax.swing.JMenuItem" name="ItemUsuarios">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Usuarios"/>
               </Properties>
-            </Menu>
-            <Menu class="javax.swing.JMenu" name="ItemInfo">
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ItemUsuariosActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="ItemInfo">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Informaci&#xf3;n"/>
               </Properties>
-            </Menu>
+            </MenuItem>
           </SubComponents>
         </Menu>
       </SubComponents>
@@ -175,6 +178,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Facturas"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnFacturasActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnRecibos">
           <Properties>

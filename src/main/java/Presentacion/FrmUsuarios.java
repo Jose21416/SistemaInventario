@@ -4,9 +4,13 @@
  */
 package Presentacion;
 
+import Datos.DUsuarios;
+import Logica.LUsuarios;
 import java.awt.Image;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -23,6 +27,7 @@ public class FrmUsuarios extends javax.swing.JInternalFrame {
         txtId.setEnabled(false);
         limpiar();
         habilitar(true);
+        mostrarBuscar("");
         
         ImageIcon imNuevo = new ImageIcon(getClass().getClassLoader().getResource("Imagenes/iconSuma.png"));
         Icon icNuevo = new ImageIcon(imNuevo.getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH));
@@ -76,6 +81,17 @@ public class FrmUsuarios extends javax.swing.JInternalFrame {
         btnGuardar.setEnabled(!b);
     
     }
+    
+    public void mostrarBuscar(String usuario) {
+        
+        DefaultTableModel miModelo;
+        LUsuarios fn = new LUsuarios();
+        DUsuarios dts = new DUsuarios();
+        dts.setUsuario(usuario);
+        miModelo = fn.mostrarUsuarios(dts);
+        tblUsuarios.setModel(miModelo);
+        
+    } 
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -260,6 +276,11 @@ public class FrmUsuarios extends javax.swing.JInternalFrame {
 
         btnBuscar.setBackground(new java.awt.Color(102, 102, 255));
         btnBuscar.setText("Buscar");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
 
         tblUsuarios.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -272,6 +293,11 @@ public class FrmUsuarios extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tblUsuarios.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblUsuariosMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblUsuarios);
 
         btnEliminar.setBackground(new java.awt.Color(102, 102, 255));
@@ -358,8 +384,106 @@ public class FrmUsuarios extends javax.swing.JInternalFrame {
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         // TODO add your handling code here:
+        
+        if(txtNombre.getText().equals("")){
+            
+            JOptionPane.showMessageDialog(rootPane, "Campo nombre obligatorio", "Validación", JOptionPane.WARNING_MESSAGE);
+            txtNombre.requestFocusInWindow();
+            return;
+        }
+        if(txtUsuario.getText().equals("")){
+            
+            JOptionPane.showMessageDialog(rootPane, "Campo usuario obligatorio", "Validación", JOptionPane.WARNING_MESSAGE);
+            txtUsuario.requestFocusInWindow();
+            return;
+        }
+        String clave = new String(txtClave.getPassword()); 
+        String confirmar = new String(txtConfirmarClave.getPassword()); 
+        if(clave.equals("")){
+            
+            JOptionPane.showMessageDialog(rootPane, "Campo clave obligatorio", "Validación", JOptionPane.WARNING_MESSAGE);
+            txtClave.requestFocusInWindow();
+            return;
+        }
+        if(confirmar.equals("")){
+            
+            JOptionPane.showMessageDialog(rootPane, "Campo confirmar obligatorio", "Validación", JOptionPane.WARNING_MESSAGE);
+            txtConfirmarClave.requestFocusInWindow();
+            return;
+        }
+        
+        
+        
+        if(!clave.equals(confirmar)){
+            
+            JOptionPane.showMessageDialog(rootPane, "Las contraseñas no coinciden", "Validación", JOptionPane.WARNING_MESSAGE);
+            txtClave.requestFocusInWindow();
+            txtClave.setText("");
+            txtConfirmarClave.setText("");
+            return;
+        }
+        
+        if(cmbPerfil.getSelectedIndex() == 0){
+            
+            JOptionPane.showMessageDialog(rootPane, "Campo perfil obligatorio", "Validación", JOptionPane.WARNING_MESSAGE);
+            cmbPerfil.requestFocusInWindow();
+            return;
+            
+        }
+        
+        
+        String msg = null;
+        if (txtId.getText().equals("")){
+            
+            DUsuarios dts = new DUsuarios();
+            LUsuarios fun = new LUsuarios();
+            
+            String perfil = String.valueOf(cmbPerfil.getSelectedItem());
+            
+            dts.setNombre(txtNombre.getText());
+            dts.setUsuario(txtUsuario.getText());
+            dts.setClave(clave);
+            dts.setPerfil(perfil);
+            
+            msg = fun.insertarUsuarios(dts);
+            if(msg.equalsIgnoreCase("si")){
+                
+            JOptionPane.showMessageDialog(rootPane, "Se registró de forma correcta", "Información", JOptionPane.INFORMATION_MESSAGE);
+
+            }else{
+                
+            JOptionPane.showMessageDialog(rootPane, "Ocurrió un problema al registrar", "Información", JOptionPane.ERROR_MESSAGE);
+                
+            }
+            
+        }else{
+            
+            DUsuarios dts = new DUsuarios();
+            LUsuarios fun = new LUsuarios();
+            
+            String perfil = String.valueOf(cmbPerfil.getSelectedItem());
+            dts.setIdUsuarios(Integer.parseInt(txtId.getText()));
+            dts.setNombre(txtNombre.getText());
+            dts.setUsuario(txtUsuario.getText());
+            dts.setClave(clave);
+            dts.setPerfil(perfil);
+            
+            msg = fun.editarUsuarios(dts);
+            if(msg.equalsIgnoreCase("si")){
+                
+            JOptionPane.showMessageDialog(rootPane, "Se actualizó de forma correcta", "Información", JOptionPane.INFORMATION_MESSAGE);
+
+            }else{
+                
+            JOptionPane.showMessageDialog(rootPane, "Ocurrió un problema al actualizar", "Información", JOptionPane.ERROR_MESSAGE);
+                
+            }
+            
+        }
+        
         limpiar();
         habilitar(true);
+        mostrarBuscar("");
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
@@ -376,10 +500,40 @@ public class FrmUsuarios extends javax.swing.JInternalFrame {
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         // TODO add your handling code here:
-        
+        if(!txtId.getText().equals("")){
+            DUsuarios dts = new DUsuarios();
+            LUsuarios fn = new LUsuarios();
+            dts.setIdUsuarios(Integer.parseInt(txtId.getText()));
+            String msg = fn.eliminarUsuarios(dts);
+            if (msg.equalsIgnoreCase("si")){
+                JOptionPane.showMessageDialog(rootPane, "Se eliminó de forma correcta", "Información", JOptionPane.INFORMATION_MESSAGE);
+            }else{
+                JOptionPane.showMessageDialog(rootPane, "Ocurrió un problema al eliminar", "Información", JOptionPane.ERROR_MESSAGE);
+
+            }
+        }else{
+                JOptionPane.showMessageDialog(rootPane, "Seleccione un usuario para poder eliminar", "Información", JOptionPane.INFORMATION_MESSAGE);
+        }
         limpiar();
         habilitar(true);
+        mostrarBuscar("");
     }//GEN-LAST:event_btnEliminarActionPerformed
+
+    private void tblUsuariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblUsuariosMouseClicked
+        // TODO add your handling code here:
+        int fila = tblUsuarios.getSelectedRow();
+        txtId.setText(tblUsuarios.getValueAt(fila, 0). toString());
+        txtNombre.setText(tblUsuarios.getValueAt(fila, 1). toString());
+        txtUsuario.setText(tblUsuarios.getValueAt(fila, 2). toString());
+        txtClave.setText(tblUsuarios.getValueAt(fila, 3). toString());
+        txtConfirmarClave.setText(tblUsuarios.getValueAt(fila, 3). toString());
+        cmbPerfil.setSelectedItem(tblUsuarios.getValueAt(fila, 4). toString());
+    }//GEN-LAST:event_tblUsuariosMouseClicked
+
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        // TODO add your handling code here:
+        mostrarBuscar(txtBuscar.getText());
+    }//GEN-LAST:event_btnBuscarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

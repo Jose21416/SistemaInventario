@@ -60,6 +60,10 @@ public class MDIPrincipal extends javax.swing.JFrame {
         Icon icInfo = new ImageIcon(imInfo.getImage().getScaledInstance(26, 26, Image.SCALE_SMOOTH));
         ItemInfo.setIcon(icInfo);
         
+        ImageIcon imLineas = new ImageIcon(getClass().getClassLoader().getResource("Imagenes/iconoLineas.png"));
+        Icon icLineas = new ImageIcon(imLineas.getImage().getScaledInstance(26, 26, Image.SCALE_SMOOTH));
+        ItemLineas.setIcon(icLineas);
+        
         ImageIcon imItemDB = new ImageIcon(getClass().getClassLoader().getResource("Imagenes/Restaurar.png"));
         Icon icItemDB = new ImageIcon(imItemDB.getImage().getScaledInstance(26, 26, Image.SCALE_SMOOTH));
         ItemDB.setIcon(icItemDB);
@@ -79,24 +83,30 @@ public class MDIPrincipal extends javax.swing.JFrame {
         timer.start();
     }
     
-    Timer timer = new Timer(1000, new ActionListener(){
-    
-            public void actionPerformed(ActionEvent e){
-                Calendar cal = new GregorianCalendar ();
-                int hh, mm, ss, dia, mes, aa;
-                hh = cal.get(Calendar.HOUR_OF_DAY);
-                ss = cal.get(Calendar.SECOND);
-                mm = cal.get(Calendar.MINUTE);
-                
-                dia = cal.get(Calendar.DAY_OF_MONTH);
-                mes = cal.get(Calendar.MONTH);
-                aa = cal.get(Calendar.YEAR);
-                
-                lblHora.setText(hh+":"+mm+":"+ss);
-                lblFecha.setText(dia+"/"+(mes+1)+"/"+aa);
-                
-            }          
-    });
+    Timer timer = new Timer(1000, new ActionListener() {
+    public void actionPerformed(ActionEvent e) {
+        Calendar cal = new GregorianCalendar();
+        
+        int hh = cal.get(Calendar.HOUR); // Formato de 12 horas
+        int mm = cal.get(Calendar.MINUTE);
+        int ss = cal.get(Calendar.SECOND);
+        int dia = cal.get(Calendar.DAY_OF_MONTH);
+        int mes = cal.get(Calendar.MONTH);
+        int aa = cal.get(Calendar.YEAR);
+        
+        // Determinar si es AM o PM
+        String ampm = (cal.get(Calendar.AM_PM) == Calendar.AM) ? "AM" : "PM";
+        
+        // Asegurar que las 12 de medianoche se muestre como "12" en vez de "0"
+        if (hh == 0) {
+            hh = 12;
+        }
+
+        // Actualizar las etiquetas con el formato deseado
+        lblHora.setText(hh + ":" + String.format("%02d", mm) + ":" + String.format("%02d", ss) + " " + ampm);
+        lblFecha.setText(dia + "/" + (mes + 1) + "/" + aa);
+    }
+});
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -128,6 +138,7 @@ public class MDIPrincipal extends javax.swing.JFrame {
         menuHerramientas = new javax.swing.JMenu();
         ItemUsuarios = new javax.swing.JMenuItem();
         ItemInfo = new javax.swing.JMenuItem();
+        ItemLineas = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -257,6 +268,14 @@ public class MDIPrincipal extends javax.swing.JFrame {
         ItemInfo.setText("Información");
         menuHerramientas.add(ItemInfo);
 
+        ItemLineas.setText("Líneas");
+        ItemLineas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ItemLineasActionPerformed(evt);
+            }
+        });
+        menuHerramientas.add(ItemLineas);
+
         jMenuBar1.add(menuHerramientas);
 
         setJMenuBar(jMenuBar1);
@@ -305,6 +324,21 @@ public class MDIPrincipal extends javax.swing.JFrame {
         misUsuarios.setVisible(true);
     }//GEN-LAST:event_ItemUsuariosActionPerformed
 
+    private void ItemLineasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ItemLineasActionPerformed
+        // Crear instancia de FrmLineas
+    FrmLineas misLineas = new FrmLineas();
+    dpnEscritorio.add(misLineas); // Agregar al escritorio
+    misLineas.setSize(dpnEscritorio.getSize());
+    misLineas.setVisible(true);
+    try {
+        misLineas.setMaximum(true); // Maximizar el JInternalFrame
+    } catch (java.beans.PropertyVetoException e) {
+        e.printStackTrace();
+    }
+    
+    misLineas.setVisible(true);
+    }//GEN-LAST:event_ItemLineasActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -348,6 +382,7 @@ public class MDIPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem ItemDFacturas;
     private javax.swing.JMenuItem ItemDRecibos;
     private javax.swing.JMenuItem ItemInfo;
+    private javax.swing.JMenuItem ItemLineas;
     private javax.swing.JMenuItem ItemReportes;
     private javax.swing.JMenuItem ItemUsuarios;
     private javax.swing.JButton btnAlmacen;

@@ -56,6 +56,14 @@
                 <Property name="text" type="java.lang.String" value="Informaci&#xf3;n"/>
               </Properties>
             </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="ItemLineas">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="L&#xed;neas"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ItemLineasActionPerformed"/>
+              </Events>
+            </MenuItem>
           </SubComponents>
         </Menu>
       </SubComponents>

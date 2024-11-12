@@ -63,6 +63,11 @@ public class MDIPrincipal extends javax.swing.JFrame {
         ImageIcon imLineas = new ImageIcon(getClass().getClassLoader().getResource("Imagenes/iconoLineas.png"));
         Icon icLineas = new ImageIcon(imLineas.getImage().getScaledInstance(26, 26, Image.SCALE_SMOOTH));
         ItemLineas.setIcon(icLineas);
+        ItemInfo.setIcon(icInfo);
+        
+        ImageIcon imProveedores = new ImageIcon(getClass().getClassLoader().getResource("Imagenes/itemProveedores.png"));
+        Icon icProveedores = new ImageIcon(imProveedores.getImage().getScaledInstance(26, 26, Image.SCALE_SMOOTH));
+        ItemProveedores.setIcon(icProveedores);
         
         ImageIcon imItemDB = new ImageIcon(getClass().getClassLoader().getResource("Imagenes/Restaurar.png"));
         Icon icItemDB = new ImageIcon(imItemDB.getImage().getScaledInstance(26, 26, Image.SCALE_SMOOTH));
@@ -139,6 +144,7 @@ public class MDIPrincipal extends javax.swing.JFrame {
         ItemUsuarios = new javax.swing.JMenuItem();
         ItemInfo = new javax.swing.JMenuItem();
         ItemLineas = new javax.swing.JMenuItem();
+        ItemProveedores = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -276,6 +282,14 @@ public class MDIPrincipal extends javax.swing.JFrame {
         });
         menuHerramientas.add(ItemLineas);
 
+        ItemProveedores.setText("Proveedores");
+        ItemProveedores.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ItemProveedoresActionPerformed(evt);
+            }
+        });
+        menuHerramientas.add(ItemProveedores);
+
         jMenuBar1.add(menuHerramientas);
 
         setJMenuBar(jMenuBar1);
@@ -339,6 +353,14 @@ public class MDIPrincipal extends javax.swing.JFrame {
     misLineas.setVisible(true);
     }//GEN-LAST:event_ItemLineasActionPerformed
 
+    private void ItemProveedoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ItemProveedoresActionPerformed
+        // TODO add your handling code here:
+        FrmProveedores misProveedores = new FrmProveedores();
+        dpnEscritorio.add(misProveedores);
+        misProveedores.setSize(dpnEscritorio.getSize());
+        misProveedores.setVisible(true);
+    }//GEN-LAST:event_ItemProveedoresActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -383,6 +405,7 @@ public class MDIPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem ItemDRecibos;
     private javax.swing.JMenuItem ItemInfo;
     private javax.swing.JMenuItem ItemLineas;
+    private javax.swing.JMenuItem ItemProveedores;
     private javax.swing.JMenuItem ItemReportes;
     private javax.swing.JMenuItem ItemUsuarios;
     private javax.swing.JButton btnAlmacen;

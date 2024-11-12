@@ -4,7 +4,7 @@
  */
 package Logica;
 
-import Datos.DLineas;
+import Datos.DProveedores;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -14,27 +14,29 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author joset
  */
-public class LLineas {
+public class LProveedores {
     
     Connection cn = LConexion.getConnection();
- 
-    public DefaultTableModel mostrarLineas(DLineas misLineas) {
+    
+    public DefaultTableModel mostrarProveedores(DProveedores misProveedores) {
     
         DefaultTableModel miModelo = null;
         
         try{
-            String titulos [] = {"Id", "Linea"};
-            String dts [] = new String [5];
+            String titulos [] = {"Id", "Nombre", "Telefono","Domicilio"};
+            String dts [] = new String [4];
             miModelo = new DefaultTableModel(null, titulos);
             
-            CallableStatement cst = cn.prepareCall("{ call sp_mostrarbuscar_lineas(?)}");
-            cst.setString(1, misLineas.getLinea());
+            CallableStatement cst = cn.prepareCall("{ call sp_mostrarbuscar_proveedores(?)}");
+            cst.setString(1, misProveedores.getNombre());
             ResultSet rs = cst.executeQuery();
             while (rs.next()) {
             
-                dts [0] = rs.getString("IdLineas");
-                dts [1] = rs.getString("Nombre");
-    
+                dts [0] = rs.getString(1);
+                dts [1] = rs.getString(2);
+                dts [2] = rs.getString(3);
+                dts [3] = rs.getString(4);
+                
                 miModelo.addRow(dts);
                 
             }
@@ -50,14 +52,16 @@ public class LLineas {
         
     }
     
-    public String insertarLineas (DLineas misLineas){
+    public String insertarProveedores (DProveedores misProveedores){
         
         String msg = null;
         
         try {
             
-            CallableStatement cst = cn.prepareCall("{ call sp_insertar_lineas(?)}");
-            cst.setString(1, misLineas.getLinea());
+            CallableStatement cst = cn.prepareCall("{ call sp_insertar_proveedores(?,?,?)}");
+            cst.setString(1, misProveedores.getNombre());
+            cst.setString(2, misProveedores.getTelefono());
+            cst.setString(3, misProveedores.getDomicilio());
             
             cst.executeUpdate();
             
@@ -74,15 +78,17 @@ public class LLineas {
     }
     
     
-    public String editarLineas (DLineas misLineas){
+    public String editarProveedores (DProveedores misProveedores){
         
         String msg = null;
         
         try {
             
-            CallableStatement cst = cn.prepareCall("{ call sp_editar_lineas(?)}");
-            cst.setInt(1, misLineas.getId());
-            cst.setString(2, misLineas.getLinea());
+            CallableStatement cst = cn.prepareCall("{ call sp_editar_proveedores(?,?,?,?)}");
+            cst.setInt(1, misProveedores.getId());
+            cst.setString(2, misProveedores.getNombre());
+            cst.setString(3, misProveedores.getTelefono());
+            cst.setString(4, misProveedores.getDomicilio());
             
             cst.executeUpdate();
             
@@ -99,14 +105,14 @@ public class LLineas {
     }
     
     
-    public String eliminarLineas (DLineas misLineas){
+    public String eliminarProveedores (DProveedores misProveedores){
         
         String msg = null;
         
         try {
             
-            CallableStatement cst = cn.prepareCall("{ call sp_eliminar_lineas(?)}");
-            cst.setInt(1, misLineas.getId());
+            CallableStatement cst = cn.prepareCall("{ call sp_eliminar_proveedores(?)}");
+            cst.setInt(1, misProveedores.getId());
             cst.executeUpdate();
             msg = "Si";
         }catch(Exception ex){

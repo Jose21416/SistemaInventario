@@ -23,9 +23,9 @@ public class FrmLineas extends javax.swing.JInternalFrame {
      */
     public FrmLineas() {
         initComponents();
-        habilitar(false);
-        limpiar();
         txtId.setEnabled(false);
+        limpiar();
+        habilitar(true);
         mostrarBuscar("");
 
         
@@ -54,19 +54,7 @@ public class FrmLineas extends javax.swing.JInternalFrame {
         btnEliminar.setIcon(icEliminar);
     }
     
-    public void habilitar (boolean b){
-        btnNuevo.setEnabled(!b);
-        btnEditar.setEnabled(!b);
-        btnGuardar.setEnabled(b);
-        btnCancelar.setEnabled(b);
-        
-        txtLinea.setEnabled(b);
-    }
     
-    public void limpiar (){
-        txtId.setText("");
-        txtLinea.setText("");
-    }
     
     public void mostrarBuscar(String linea) {
         
@@ -78,6 +66,20 @@ public class FrmLineas extends javax.swing.JInternalFrame {
         tblLineas.setModel(miModelo);
         
     } 
+    public void limpiar (){
+        txtId.setText("");
+        txtLinea.setText("");
+        txtBuscar.setText("");
+    }
+    
+    public void habilitar (boolean b){
+        txtLinea.setEnabled(!b);
+        btnNuevo.setEnabled(b);
+        btnEditar.setEnabled(b);
+        btnGuardar.setEnabled(!b);
+        btnCancelar.setEnabled(!b);
+        
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

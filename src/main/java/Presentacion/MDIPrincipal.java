@@ -79,7 +79,7 @@ public class MDIPrincipal extends javax.swing.JFrame {
         
         ImageIcon imDetFac = new ImageIcon(getClass().getClassLoader().getResource("Imagenes/DFacturas.png"));
         Icon icDetFac = new ImageIcon(imDetFac.getImage().getScaledInstance(26, 26, Image.SCALE_SMOOTH));
-        ItemDFacturas.setIcon(icDetFac);
+        ItemDetFact.setIcon(icDetFac);
         
         ImageIcon imDetRec = new ImageIcon(getClass().getClassLoader().getResource("Imagenes/Recibos.png"));
         Icon icDetRec = new ImageIcon(imDetRec.getImage().getScaledInstance(26, 26, Image.SCALE_SMOOTH));
@@ -132,11 +132,11 @@ public class MDIPrincipal extends javax.swing.JFrame {
         lblUsuario = new javax.swing.JLabel();
         lblHora = new javax.swing.JLabel();
         lblFecha = new javax.swing.JLabel();
-        dpnEscritorio = new javax.swing.JDesktopPane();
+        dpnPrincipal = new javax.swing.JDesktopPane();
         jMenuBar1 = new javax.swing.JMenuBar();
         menuConsultas = new javax.swing.JMenu();
         ItemReportes = new javax.swing.JMenuItem();
-        ItemDFacturas = new javax.swing.JMenuItem();
+        ItemDetFact = new javax.swing.JMenuItem();
         ItemDRecibos = new javax.swing.JMenuItem();
         menuDB = new javax.swing.JMenu();
         ItemDB = new javax.swing.JMenuItem();
@@ -230,14 +230,14 @@ public class MDIPrincipal extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        javax.swing.GroupLayout dpnEscritorioLayout = new javax.swing.GroupLayout(dpnEscritorio);
-        dpnEscritorio.setLayout(dpnEscritorioLayout);
-        dpnEscritorioLayout.setHorizontalGroup(
-            dpnEscritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout dpnPrincipalLayout = new javax.swing.GroupLayout(dpnPrincipal);
+        dpnPrincipal.setLayout(dpnPrincipalLayout);
+        dpnPrincipalLayout.setHorizontalGroup(
+            dpnPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 777, Short.MAX_VALUE)
         );
-        dpnEscritorioLayout.setVerticalGroup(
-            dpnEscritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        dpnPrincipalLayout.setVerticalGroup(
+            dpnPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
@@ -246,8 +246,13 @@ public class MDIPrincipal extends javax.swing.JFrame {
         ItemReportes.setText("Reportes");
         menuConsultas.add(ItemReportes);
 
-        ItemDFacturas.setText("Detalle de facturas");
-        menuConsultas.add(ItemDFacturas);
+        ItemDetFact.setText("Detalle de facturas");
+        ItemDetFact.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ItemDetFactActionPerformed(evt);
+            }
+        });
+        menuConsultas.add(ItemDetFact);
 
         ItemDRecibos.setText("Detalle de recibos");
         menuConsultas.add(ItemDRecibos);
@@ -302,7 +307,7 @@ public class MDIPrincipal extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(dpnEscritorio)
+                .addComponent(dpnPrincipal)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -310,7 +315,7 @@ public class MDIPrincipal extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(dpnEscritorio)
+                    .addComponent(dpnPrincipal)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -320,6 +325,9 @@ public class MDIPrincipal extends javax.swing.JFrame {
 
     private void btnAlmacenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlmacenActionPerformed
         // TODO add your handling code here:
+        FrmInventario miProducto = new FrmInventario();
+        dpnPrincipal.add(miProducto);
+        miProducto.show();
     }//GEN-LAST:event_btnAlmacenActionPerformed
 
     private void btnRecibosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRecibosActionPerformed
@@ -327,22 +335,24 @@ public class MDIPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRecibosActionPerformed
 
     private void btnFacturasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFacturasActionPerformed
-        
+        FrmFacturas miFactura = new FrmFacturas();
+        dpnPrincipal.add(miFactura);
+        miFactura.show();
     }//GEN-LAST:event_btnFacturasActionPerformed
 
     private void ItemUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ItemUsuariosActionPerformed
         // TODO add your handling code here:
         FrmUsuarios misUsuarios = new FrmUsuarios();
-        dpnEscritorio.add(misUsuarios);
-        misUsuarios.setSize(dpnEscritorio.getSize());
+        dpnPrincipal.add(misUsuarios);
+        misUsuarios.setSize(dpnPrincipal.getSize());
         misUsuarios.setVisible(true);
     }//GEN-LAST:event_ItemUsuariosActionPerformed
 
     private void ItemLineasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ItemLineasActionPerformed
         // Crear instancia de FrmLineas
     FrmLineas misLineas = new FrmLineas();
-    dpnEscritorio.add(misLineas); // Agregar al escritorio
-    misLineas.setSize(dpnEscritorio.getSize());
+    dpnPrincipal.add(misLineas); // Agregar al escritorio
+    misLineas.setSize(dpnPrincipal.getSize());
     misLineas.setVisible(true);
     try {
         misLineas.setMaximum(true); // Maximizar el JInternalFrame
@@ -355,11 +365,17 @@ public class MDIPrincipal extends javax.swing.JFrame {
 
     private void ItemProveedoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ItemProveedoresActionPerformed
         // TODO add your handling code here:
-        FrmProveedores misProveedores = new FrmProveedores();
-        dpnEscritorio.add(misProveedores);
-        misProveedores.setSize(dpnEscritorio.getSize());
-        misProveedores.setVisible(true);
+        FrmProveedores miProveedor = new FrmProveedores();
+        dpnPrincipal.add(miProveedor);
+        miProveedor.show();
     }//GEN-LAST:event_ItemProveedoresActionPerformed
+
+    private void ItemDetFactActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ItemDetFactActionPerformed
+        // TODO add your handling code here:
+        FrmDetFacturas miFactura = new FrmDetFacturas();
+        dpnPrincipal.add(miFactura);
+        miFactura.show();
+    }//GEN-LAST:event_ItemDetFactActionPerformed
 
     /**
      * @param args the command line arguments
@@ -401,8 +417,8 @@ public class MDIPrincipal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem ItemDB;
-    private javax.swing.JMenuItem ItemDFacturas;
     private javax.swing.JMenuItem ItemDRecibos;
+    private javax.swing.JMenuItem ItemDetFact;
     private javax.swing.JMenuItem ItemInfo;
     private javax.swing.JMenuItem ItemLineas;
     private javax.swing.JMenuItem ItemProveedores;
@@ -411,7 +427,7 @@ public class MDIPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton btnAlmacen;
     private javax.swing.JButton btnFacturas;
     private javax.swing.JButton btnRecibos;
-    private javax.swing.JDesktopPane dpnEscritorio;
+    private javax.swing.JDesktopPane dpnPrincipal;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

@@ -6,6 +6,9 @@ package Presentacion;
 
 import Datos.DAlmacen;
 import Logica.LAlmacen;
+import java.awt.Image;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -20,6 +23,11 @@ public class FrmInventario extends javax.swing.JInternalFrame {
     public FrmInventario() {
         initComponents();
         mostrarBuscar("");
+        
+        ImageIcon imBuscar = new ImageIcon(getClass().getClassLoader().getResource("Imagenes/iconBuscar.png"));
+        Icon icBuscar = new ImageIcon(imBuscar.getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH));
+        btnBuscar.setIcon(icBuscar);
+        
     }
 
     public void mostrarBuscar(String id) {

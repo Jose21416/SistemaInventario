@@ -5,6 +5,11 @@
 package Presentacion;
 
 import Logica.LFactura;
+import java.awt.Image;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -19,6 +24,11 @@ public class FrmDetFacturas extends javax.swing.JInternalFrame {
     public FrmDetFacturas() {
         initComponents();
         mostrarBuscar();
+        
+        ImageIcon imBuscar = new ImageIcon(getClass().getClassLoader().getResource("Imagenes/iconBuscar.png"));
+        Icon icBuscar = new ImageIcon(imBuscar.getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH));
+        btnBuscar.setIcon(icBuscar);
+        
     }
     
     public void mostrarBuscar() {
@@ -45,6 +55,7 @@ public class FrmDetFacturas extends javax.swing.JInternalFrame {
         txtBuscar = new javax.swing.JTextField();
         btnBuscar = new javax.swing.JButton();
 
+        setBackground(new java.awt.Color(102, 102, 255));
         setBorder(javax.swing.BorderFactory.createTitledBorder("Lista de facturas"));
         setClosable(true);
         setIconifiable(true);
@@ -60,6 +71,11 @@ public class FrmDetFacturas extends javax.swing.JInternalFrame {
                 "ID", "PROVEEDOR", "LINEA", "FECHA DE REGISTRO"
             }
         ));
+        tblFacturas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                tblFacturasMousePressed(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblFacturas);
 
         btnBuscar.setText("Buscar");
@@ -110,6 +126,21 @@ public class FrmDetFacturas extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void tblFacturasMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblFacturasMousePressed
+        // TODO add your handling code here:
+        if(evt.getClickCount() == 2){
+            String idfactura = tblFacturas.getValueAt(tblFacturas.getSelectedRow(),0).toString();
+            String proveedor = tblFacturas.getValueAt(tblFacturas.getSelectedRow(),1).toString();
+            String linea = tblFacturas.getValueAt(tblFacturas.getSelectedRow(),2).toString();
+            String fechareg = tblFacturas.getValueAt(tblFacturas.getSelectedRow(),3).toString();
+            
+            FrmDetalleFacturas mi = new FrmDetalleFacturas(new JFrame(), true);
+            mi.setFactura(idfactura, proveedor, linea, fechareg);
+            mi.setLocationRelativeTo(null);
+            mi.setVisible(true);
+        }
+    }//GEN-LAST:event_tblFacturasMousePressed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

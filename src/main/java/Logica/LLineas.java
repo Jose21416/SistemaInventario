@@ -24,7 +24,7 @@ public class LLineas {
         
         try{
             String titulos [] = {"Id", "Linea"};
-            String dts [] = new String [5];
+            String dts [] = new String [2];
             miModelo = new DefaultTableModel(null, titulos);
             
             CallableStatement cst = cn.prepareCall("{ call sp_mostrarbuscar_lineas(?)}");
@@ -61,11 +61,10 @@ public class LLineas {
             
             cst.executeUpdate();
             
-            msg = "Si";
+            msg = "Se registró de forma correcta";
         }catch(Exception ex){
             
             ex.printStackTrace();
-            msg = "no"; 
             
         }
         
@@ -86,11 +85,10 @@ public class LLineas {
             
             cst.executeUpdate();
             
-            msg = "Si";
+            msg = "Se actualizó de forma correcta";
         }catch(Exception ex){
             
             ex.printStackTrace();
-            msg = "no"; 
             
         }
         
@@ -108,11 +106,10 @@ public class LLineas {
             CallableStatement cst = cn.prepareCall("{ call sp_eliminar_lineas(?)}");
             cst.setInt(1, misLineas.getId());
             cst.executeUpdate();
-            msg = "Si";
+            msg = "Se eliminó de forma correcta";
         }catch(Exception ex){
             
             ex.printStackTrace();
-            msg = "no"; 
             
         }
         

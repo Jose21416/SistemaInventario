@@ -5,8 +5,10 @@
 package Presentacion;
 
 import Datos.DAlmacen;
+import Datos.DDetalleFacturas;
 import Datos.DFactura;
 import Logica.LAlmacen;
+import Logica.LDetalleFacturas;
 import Logica.LFactura;
 import java.awt.Image;
 import java.awt.event.KeyEvent;
@@ -26,12 +28,7 @@ import javax.swing.table.DefaultTableModel;
 public class FrmFacturas extends javax.swing.JInternalFrame {
 
     DefaultTableModel miModelo;
-    int miIdFactura;
-
-    public void retornaId(int idres) {
-        miIdFactura = idres;
-        System.out.println(String.valueOf("mi id factura: " + miIdFactura));
-    }
+    static int idlineas = 0;
 
     public static void setProveedores(String id, String proveedor) {
 
@@ -42,6 +39,7 @@ public class FrmFacturas extends javax.swing.JInternalFrame {
     
     public static void setLinea(String id, String linea) {
 
+        idlineas = Integer.parseInt(id);
         txtIdLineas.setText(id);
         txtLinea.setText(linea);
 
@@ -93,7 +91,7 @@ public class FrmFacturas extends javax.swing.JInternalFrame {
 
         txtIdLineas.setEnabled(false);
         txtIdProveedores.setEnabled(false);
-
+        
     }
 
     public void habilitar(boolean b) {
@@ -318,7 +316,7 @@ public class FrmFacturas extends javax.swing.JInternalFrame {
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         // TODO add your handling code here:
 
-        String msg = "";
+        String msg = "", msgfinal = "";
 
         if (txtLinea.getText().equals("")) {
 
@@ -358,20 +356,86 @@ public class FrmFacturas extends javax.swing.JInternalFrame {
         dd = cal.get(Calendar.DAY_OF_MONTH);
 
         dts.setFechaEntrada(new Date(aa, mm, dd));
+        txtProveedor.setText("");
+        txtLinea.setText("");
+        txtLinea.setEnabled(false);
+        txtProveedor.setEnabled(false);
 
-        msg = fn.insertarFacturas(dts);
-        if (msg == "si") {
-
-            JOptionPane.showMessageDialog(rootPane, "Se registró de forma correcta", "Información", JOptionPane.INFORMATION_MESSAGE);
+        int idfact = fn.insertarFacturas(dts);
+        if (idfact>0) {
+            
+            int filas = tblFacturas.getRowCount();
+            for(int i = 0; i < filas; i++){
+                    
+                String idprod = tblFacturas.getValueAt(i,0).toString();
+                String descrip = tblFacturas.getValueAt(i,1).toString();
+                int cantidad = Integer.parseInt(tblFacturas.getValueAt(i,2).toString());
+                String umedida = tblFacturas.getValueAt(i,3).toString();
+                double punitario = Double.parseDouble(tblFacturas.getValueAt(i,4).toString());
+                double total = Double.parseDouble(tblFacturas.getValueAt(i,5).toString());
+                
+                LDetalleFacturas fundf = new LDetalleFacturas();
+                DDetalleFacturas dtsf = new DDetalleFacturas();
+                dtsf.setFacturasId(idfact);
+                dtsf.setProductosId(idprod);
+                dtsf.setCantidad(cantidad);
+                dtsf.setTotal(total);
+                
+                String mensaje = fundf.registrarDetalleFactura(dtsf);
+                
+                if(mensaje.equals("si")){
+                    LAlmacen funAl = new LAlmacen();
+                    DAlmacen dtsp = new DAlmacen ();
+                    
+                    dtsp.setIdAlmacen(idprod);
+                    dtsp.setDescripcion(descrip);
+                    dtsp.setStock(cantidad);
+                    dtsp.setUMedida(umedida);
+                    dtsp.setPUnitario(punitario);
+                    dtsp.setLineasId(idlineas);
+                    
+                    msgfinal = funAl.insertarProductos(dtsp);
+                }
+                
+            }
+        JOptionPane.showMessageDialog(rootPane, msgfinal , "Información", JOptionPane.INFORMATION_MESSAGE);
+        txtLinea.setText("");
+        idlineas = 0;
 
         } else {
 
             JOptionPane.showMessageDialog(rootPane, "Ocurrió un problema al registrar", "Información", JOptionPane.ERROR_MESSAGE);
 
         }
-
+        habilitar(true);
+        limpiar();
     }//GEN-LAST:event_btnGuardarActionPerformed
 
+    public void limpiar(){
+        
+        txtEnter.setText("");
+        txtFecha.setDate(null);
+        txtLinea.setText("m");
+        txtProveedor.setText("m");
+        txtIdFacturas.setText("");
+        txtIdLineas.setText("");
+        txtIdProveedores.setText("");
+        txtTotal.setText("");
+        
+        try{
+            DefaultTableModel modelo = (DefaultTableModel) tblFacturas.getModel();
+            int filas = tblFacturas.getRowCount();
+            for(int i = 0; filas > i; i++){
+                
+                modelo.removeRow(0);
+                
+            }
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null, "Error al limpiar la tabla.");
+        }
+        
+    }
+    
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
         // TODO add your handling code here:
         habilitar(false);
@@ -386,7 +450,7 @@ public class FrmFacturas extends javax.swing.JInternalFrame {
 
     private void btnBuscarProveedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarProveedorActionPerformed
         // TODO add your handling code here:
-        FrmBuscarProveedor mi = new FrmBuscarProveedor(new JFrame(), true);
+        FrmBuscarProveedores mi = new FrmBuscarProveedores(new JFrame(), true);
         mi.setLocationRelativeTo(null);
         mi.setVisible(true);
     }//GEN-LAST:event_btnBuscarProveedorActionPerformed

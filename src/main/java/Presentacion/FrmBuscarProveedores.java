@@ -17,12 +17,12 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author joset
  */
-public class FrmBuscarProveedor extends javax.swing.JDialog {
+public class FrmBuscarProveedores extends javax.swing.JDialog {
 
     /**
      * Creates new form FrmBuscarProveedor
      */
-    public FrmBuscarProveedor(java.awt.Frame parent, boolean modal) {
+    public FrmBuscarProveedores(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         mostrarBuscar("");
@@ -35,7 +35,7 @@ public class FrmBuscarProveedor extends javax.swing.JDialog {
         btnBuscar.setIcon(icBuscar);
     }
 
-        public void mostrarBuscar(String proveedores) {
+    public void mostrarBuscar(String proveedores) {
         
         DefaultTableModel miModelo;
         LProveedores fun = new LProveedores();
@@ -128,8 +128,6 @@ public class FrmBuscarProveedor extends javax.swing.JDialog {
     private void tblProveedoresMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblProveedoresMousePressed
         // TODO add your handling code here:
         JTable tbl = (JTable) evt.getSource();
-        Point pt = evt.getPoint();
-        int row = tbl.rowAtPoint(pt);
         if(evt.getClickCount() == 2){
             String id = tblProveedores.getValueAt(tblProveedores.getSelectedRow(),0).toString();
             String proveedor = tblProveedores.getValueAt(tblProveedores.getSelectedRow(),1).toString();
@@ -155,20 +153,21 @@ public class FrmBuscarProveedor extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FrmBuscarProveedor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmBuscarProveedores.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FrmBuscarProveedor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmBuscarProveedores.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FrmBuscarProveedor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmBuscarProveedores.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FrmBuscarProveedor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmBuscarProveedores.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                FrmBuscarProveedor dialog = new FrmBuscarProveedor(new javax.swing.JFrame(), true);
+                FrmBuscarProveedores dialog = new FrmBuscarProveedores(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {

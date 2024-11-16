@@ -337,7 +337,8 @@ public class MDIPrincipal extends javax.swing.JFrame {
     private void btnFacturasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFacturasActionPerformed
         FrmFacturas miFactura = new FrmFacturas();
         dpnPrincipal.add(miFactura);
-        miFactura.show();
+        miFactura.setSize(dpnPrincipal.getSize());
+        miFactura.setVisible(true);
     }//GEN-LAST:event_btnFacturasActionPerformed
 
     private void ItemUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ItemUsuariosActionPerformed

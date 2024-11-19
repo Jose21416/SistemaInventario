@@ -25,93 +25,93 @@ public class MDIPrincipal extends javax.swing.JFrame {
      */
     public MDIPrincipal() {
         initComponents();
-        
+
         setExtendedState(JFrame.MAXIMIZED_BOTH);
-       
+
         ImageIcon icFacturas = new ImageIcon(getClass().getClassLoader().getResource("Imagenes/Facturas.png"));
         Icon iconoFac = new ImageIcon(icFacturas.getImage().getScaledInstance(65, 65, Image.SCALE_SMOOTH));
         btnFacturas.setIcon(iconoFac);
-        
+
         ImageIcon icRecibos = new ImageIcon(getClass().getClassLoader().getResource("Imagenes/Recibos.png"));
         Icon iconoRec = new ImageIcon(icRecibos.getImage().getScaledInstance(60, 60, Image.SCALE_SMOOTH));
         btnRecibos.setIcon(iconoRec);
-        
+
         ImageIcon icAlmacen = new ImageIcon(getClass().getClassLoader().getResource("Imagenes/Almacen.png"));
         Icon iconoAlm = new ImageIcon(icAlmacen.getImage().getScaledInstance(60, 60, Image.SCALE_SMOOTH));
         btnAlmacen.setIcon(iconoAlm);
-        
+
         ImageIcon mConsultas = new ImageIcon(getClass().getClassLoader().getResource("Imagenes/Busquedas.png"));
         Icon icConsultas = new ImageIcon(mConsultas.getImage().getScaledInstance(32, 32, Image.SCALE_SMOOTH));
         menuConsultas.setIcon(icConsultas);
-        
+
         ImageIcon imenuDB = new ImageIcon(getClass().getClassLoader().getResource("Imagenes/Almacen.png"));
         Icon icDb = new ImageIcon(imenuDB.getImage().getScaledInstance(32, 32, Image.SCALE_SMOOTH));
         menuDB.setIcon(icDb);
-        
+
         ImageIcon imHerramientas = new ImageIcon(getClass().getClassLoader().getResource("Imagenes/opciones.png"));
         Icon icHerramientas = new ImageIcon(imHerramientas.getImage().getScaledInstance(32, 32, Image.SCALE_SMOOTH));
         menuHerramientas.setIcon(icHerramientas);
-     
+
         ImageIcon imItemUs = new ImageIcon(getClass().getClassLoader().getResource("Imagenes/Usuarios.png"));
         Icon icUs = new ImageIcon(imItemUs.getImage().getScaledInstance(26, 26, Image.SCALE_SMOOTH));
         ItemUsuarios.setIcon(icUs);
-       
+
         ImageIcon imInfo = new ImageIcon(getClass().getClassLoader().getResource("Imagenes/info.png"));
         Icon icInfo = new ImageIcon(imInfo.getImage().getScaledInstance(26, 26, Image.SCALE_SMOOTH));
         ItemInfo.setIcon(icInfo);
-        
+
         ImageIcon imLineas = new ImageIcon(getClass().getClassLoader().getResource("Imagenes/iconoLineas.png"));
         Icon icLineas = new ImageIcon(imLineas.getImage().getScaledInstance(26, 26, Image.SCALE_SMOOTH));
         ItemLineas.setIcon(icLineas);
         ItemInfo.setIcon(icInfo);
-        
+
         ImageIcon imProveedores = new ImageIcon(getClass().getClassLoader().getResource("Imagenes/itemProveedores.png"));
         Icon icProveedores = new ImageIcon(imProveedores.getImage().getScaledInstance(26, 26, Image.SCALE_SMOOTH));
         ItemProveedores.setIcon(icProveedores);
-        
+
         ImageIcon imItemDB = new ImageIcon(getClass().getClassLoader().getResource("Imagenes/Restaurar.png"));
         Icon icItemDB = new ImageIcon(imItemDB.getImage().getScaledInstance(26, 26, Image.SCALE_SMOOTH));
         ItemDB.setIcon(icItemDB);
-        
+
         ImageIcon imItemReportes = new ImageIcon(getClass().getClassLoader().getResource("Imagenes/FacturasIcono.png"));
         Icon icReportes = new ImageIcon(imItemReportes.getImage().getScaledInstance(26, 26, Image.SCALE_SMOOTH));
         ItemReportes.setIcon(icReportes);
-        
+
         ImageIcon imDetFac = new ImageIcon(getClass().getClassLoader().getResource("Imagenes/DFacturas.png"));
         Icon icDetFac = new ImageIcon(imDetFac.getImage().getScaledInstance(26, 26, Image.SCALE_SMOOTH));
         ItemDetFact.setIcon(icDetFac);
-        
+
         ImageIcon imDetRec = new ImageIcon(getClass().getClassLoader().getResource("Imagenes/Recibos.png"));
         Icon icDetRec = new ImageIcon(imDetRec.getImage().getScaledInstance(26, 26, Image.SCALE_SMOOTH));
         ItemDRecibos.setIcon(icDetRec);
-      
+
         timer.start();
     }
-    
-    Timer timer = new Timer(1000, new ActionListener() {
-    public void actionPerformed(ActionEvent e) {
-        Calendar cal = new GregorianCalendar();
-        
-        int hh = cal.get(Calendar.HOUR); // Formato de 12 horas
-        int mm = cal.get(Calendar.MINUTE);
-        int ss = cal.get(Calendar.SECOND);
-        int dia = cal.get(Calendar.DAY_OF_MONTH);
-        int mes = cal.get(Calendar.MONTH);
-        int aa = cal.get(Calendar.YEAR);
-        
-        // Determinar si es AM o PM
-        String ampm = (cal.get(Calendar.AM_PM) == Calendar.AM) ? "AM" : "PM";
-        
-        // Asegurar que las 12 de medianoche se muestre como "12" en vez de "0"
-        if (hh == 0) {
-            hh = 12;
-        }
 
-        // Actualizar las etiquetas con el formato deseado
-        lblHora.setText(hh + ":" + String.format("%02d", mm) + ":" + String.format("%02d", ss) + " " + ampm);
-        lblFecha.setText(dia + "/" + (mes + 1) + "/" + aa);
-    }
-});
+    Timer timer = new Timer(1000, new ActionListener() {
+        public void actionPerformed(ActionEvent e) {
+            Calendar cal = new GregorianCalendar();
+
+            int hh = cal.get(Calendar.HOUR); // Formato de 12 horas
+            int mm = cal.get(Calendar.MINUTE);
+            int ss = cal.get(Calendar.SECOND);
+            int dia = cal.get(Calendar.DAY_OF_MONTH);
+            int mes = cal.get(Calendar.MONTH);
+            int aa = cal.get(Calendar.YEAR);
+
+            // Determinar si es AM o PM
+            String ampm = (cal.get(Calendar.AM_PM) == Calendar.AM) ? "AM" : "PM";
+
+            // Asegurar que las 12 de medianoche se muestre como "12" en vez de "0"
+            if (hh == 0) {
+                hh = 12;
+            }
+
+            // Actualizar las etiquetas con el formato deseado
+            lblHora.setText(hh + ":" + String.format("%02d", mm) + ":" + String.format("%02d", ss) + " " + ampm);
+            lblFecha.setText(dia + "/" + (mes + 1) + "/" + aa);
+        }
+    });
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -327,11 +327,32 @@ public class MDIPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
         FrmInventario miProducto = new FrmInventario();
         dpnPrincipal.add(miProducto);
-        miProducto.show();
+        miProducto.setSize(dpnPrincipal.getSize());
+        miProducto.setVisible(true);
+
+        try {
+            miProducto.setMaximum(true); // Maximizar el JInternalFrame
+        } catch (java.beans.PropertyVetoException e) {
+            e.printStackTrace();
+        }
+
+        miProducto.setVisible(true);
     }//GEN-LAST:event_btnAlmacenActionPerformed
 
     private void btnRecibosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRecibosActionPerformed
         // TODO add your handling code here:
+        FrmRecibos miRecibo = new FrmRecibos();
+        dpnPrincipal.add(miRecibo);
+        miRecibo.setSize(dpnPrincipal.getSize());
+        miRecibo.setVisible(true);
+        
+        try {
+            miRecibo.setMaximum(true); // Maximizar el JInternalFrame
+        } catch (java.beans.PropertyVetoException e) {
+            e.printStackTrace();
+        }
+
+        miRecibo.setVisible(true);
     }//GEN-LAST:event_btnRecibosActionPerformed
 
     private void btnFacturasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFacturasActionPerformed
@@ -351,17 +372,17 @@ public class MDIPrincipal extends javax.swing.JFrame {
 
     private void ItemLineasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ItemLineasActionPerformed
         // Crear instancia de FrmLineas
-    FrmLineas misLineas = new FrmLineas();
-    dpnPrincipal.add(misLineas); // Agregar al escritorio
-    misLineas.setSize(dpnPrincipal.getSize());
-    misLineas.setVisible(true);
-    try {
-        misLineas.setMaximum(true); // Maximizar el JInternalFrame
-    } catch (java.beans.PropertyVetoException e) {
-        e.printStackTrace();
-    }
-    
-    misLineas.setVisible(true);
+        FrmLineas misLineas = new FrmLineas();
+        dpnPrincipal.add(misLineas); // Agregar al escritorio
+        misLineas.setSize(dpnPrincipal.getSize());
+        misLineas.setVisible(true);
+        try {
+            misLineas.setMaximum(true); // Maximizar el JInternalFrame
+        } catch (java.beans.PropertyVetoException e) {
+            e.printStackTrace();
+        }
+
+        misLineas.setVisible(true);
     }//GEN-LAST:event_ItemLineasActionPerformed
 
     private void ItemProveedoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ItemProveedoresActionPerformed

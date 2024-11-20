@@ -7,9 +7,22 @@ package Presentacion;
 import Datos.DAlmacen;
 import Logica.LAlmacen;
 import java.awt.Image;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
 import javax.swing.table.DefaultTableModel;
+import org.apache.poi.ss.usermodel.BorderStyle;
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.FillPatternType;
+import org.apache.poi.xssf.usermodel.XSSFCell;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.apache.poi.ss.usermodel.Font;
+import org.apache.poi.ss.usermodel.IndexedColors;
 
 /**
  *
@@ -77,6 +90,11 @@ public class FrmInventario extends javax.swing.JInternalFrame {
         jScrollPane1.setViewportView(tblInventario);
 
         btnReporte.setText("Generar reporte");
+        btnReporte.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnReporteActionPerformed(evt);
+            }
+        });
 
         btnBuscar.setText("Buscar");
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
@@ -137,6 +155,83 @@ public class FrmInventario extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         mostrarBuscar(txtBuscar.getText());
     }//GEN-LAST:event_btnBuscarActionPerformed
+
+    private void btnReporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReporteActionPerformed
+        // TODO add your handling code here:
+        JFileChooser seleccionar = new JFileChooser();
+        int opcion = seleccionar.showSaveDialog(null);
+        if (opcion == JFileChooser.APPROVE_OPTION){
+            
+            String ruta = seleccionar.getSelectedFile().getAbsolutePath();
+            String nombrereporte = ruta+".xlsx";
+            String nombrehoja = "Inventario";
+            XSSFWorkbook libroinventario = new XSSFWorkbook();
+            XSSFSheet hojainventario = libroinventario.createSheet(nombrehoja);
+            
+            String [] titulos = new String [] {"CÓDIGO","DESCRIPCIÓN","CANTIDAD","U/MEDIDA","P/UNITARIO","TOTAL","LÍNEA"};
+            
+            Font fontcabecera = libroinventario.createFont();
+            fontcabecera.setBold(true);
+            fontcabecera.setColor(IndexedColors.WHITE.getIndex());
+            
+            CellStyle cscabecera = libroinventario.createCellStyle();
+            cscabecera.setBorderBottom(BorderStyle.THIN);
+            cscabecera.setBorderLeft(BorderStyle.THIN);
+            cscabecera.setBorderRight(BorderStyle.THIN);
+            cscabecera.setBorderTop(BorderStyle.THIN);
+            cscabecera.setFillForegroundColor(IndexedColors.DARK_BLUE.getIndex());
+            cscabecera.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+            cscabecera.setFont(fontcabecera);
+            
+            CellStyle cscontenido = libroinventario.createCellStyle();
+            cscontenido.setBorderBottom(BorderStyle.THIN);
+            cscontenido.setBorderLeft(BorderStyle.THIN);
+            cscontenido.setBorderRight(BorderStyle.THIN);
+            cscontenido.setBorderTop(BorderStyle.THIN);
+            
+            XSSFRow titulo = hojainventario.createRow(0);
+            for(int i = 0; i < titulos.length; i++ ){
+                
+                XSSFCell celda = titulo.createCell(i);
+                celda.setCellValue(titulos[i]);
+                celda.setCellStyle(cscabecera);
+                
+            }
+            
+            int filacontenido = 1;
+            for(int i = 0; i < tblInventario.getRowCount(); i++){
+                
+                XSSFRow contenido = hojainventario.createRow(filacontenido);
+                filacontenido++;
+                for (int j = 0; j < tblInventario.getColumnCount(); j++){
+                    
+                    XSSFCell celda = contenido.createCell(j);
+                    celda.setCellValue(tblInventario.getValueAt(i, j).toString());
+                    celda.setCellStyle(cscontenido);
+                    
+                }
+                
+            }
+            
+            hojainventario.autoSizeColumn(0);
+            hojainventario.autoSizeColumn(1);
+            hojainventario.autoSizeColumn(2);
+            hojainventario.autoSizeColumn(3);
+            hojainventario.autoSizeColumn(4);
+            hojainventario.autoSizeColumn(5);
+            hojainventario.autoSizeColumn(6);
+            try (OutputStream archivo = new FileOutputStream (nombrereporte)){
+                
+                libroinventario.write(archivo);
+                
+            }catch(IOException ex){
+                
+                ex.printStackTrace();
+                
+            }
+            
+        }
+    }//GEN-LAST:event_btnReporteActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

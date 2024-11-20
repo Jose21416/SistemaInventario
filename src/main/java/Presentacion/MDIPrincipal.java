@@ -255,6 +255,11 @@ public class MDIPrincipal extends javax.swing.JFrame {
         menuConsultas.add(ItemDetFact);
 
         ItemDRecibos.setText("Detalle de recibos");
+        ItemDRecibos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ItemDRecibosActionPerformed(evt);
+            }
+        });
         menuConsultas.add(ItemDRecibos);
 
         jMenuBar1.add(menuConsultas);
@@ -398,6 +403,13 @@ public class MDIPrincipal extends javax.swing.JFrame {
         dpnPrincipal.add(miFactura);
         miFactura.show();
     }//GEN-LAST:event_ItemDetFactActionPerformed
+
+    private void ItemDRecibosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ItemDRecibosActionPerformed
+        // TODO add your handling code here:
+        FrmDetRecibos miFactura = new FrmDetRecibos();
+        dpnPrincipal.add(miFactura);
+        miFactura.show();
+    }//GEN-LAST:event_ItemDRecibosActionPerformed
 
     /**
      * @param args the command line arguments

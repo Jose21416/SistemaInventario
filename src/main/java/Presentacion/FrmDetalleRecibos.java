@@ -4,8 +4,8 @@
  */
 package Presentacion;
 
-import Datos.DDetalleFacturas;
-import Logica.LDetalleFacturas;
+import Datos.DDetalleRecibos;
+import Logica.LDetalleRecibos;
 import java.text.DecimalFormat;
 import javax.swing.table.DefaultTableModel;
 
@@ -13,42 +13,45 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author joset
  */
-public class FrmDetalleFacturas extends javax.swing.JDialog {
+public class FrmDetalleRecibos extends javax.swing.JDialog {
 
     DefaultTableModel miModelo;
     
     /**
-     * Creates new form FrmDetalleFacturas
+     * Creates new form FrmDetalleRecibos
      */
-    public FrmDetalleFacturas(java.awt.Frame parent, boolean modal) {
+    public FrmDetalleRecibos(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         
-        txtIdFacturas.setEditable(false);
-        txtProveedor.setEditable(false);
-        txtLinea.setEditable(false);
-        txtFechaReg.setEditable(false);
+        txtIdRecibos.setEditable(false);
+        txtFecha.setEditable(false);
+        txtPersonaR.setEditable(false);
+        txtPersonaE.setEditable(false);
         txtTotal.setEditable(false);
         
-        miModelo = (DefaultTableModel) tblFacturas.getModel();
+        miModelo = (DefaultTableModel) tblRecibos.getModel();
 
-        tblFacturas.getColumn("CÓDIGO").setWidth(15);
-        tblFacturas.getColumn("CÓDIGO").setPreferredWidth(15);
+        tblRecibos.getColumn("CÓDIGO").setWidth(15);
+        tblRecibos.getColumn("CÓDIGO").setPreferredWidth(15);
 
-        tblFacturas.getColumn("DESCRIPCIÓN").setWidth(220);
-        tblFacturas.getColumn("DESCRIPCIÓN").setPreferredWidth(220);
+        tblRecibos.getColumn("DESCRIPCIÓN").setWidth(220);
+        tblRecibos.getColumn("DESCRIPCIÓN").setPreferredWidth(220);
 
-        tblFacturas.getColumn("CANTIDAD").setWidth(20);
-        tblFacturas.getColumn("CANTIDAD").setPreferredWidth(20);
+        tblRecibos.getColumn("CANTIDAD").setWidth(20);
+        tblRecibos.getColumn("CANTIDAD").setPreferredWidth(20);
 
-        tblFacturas.getColumn("U/MEDIDA").setWidth(20);
-        tblFacturas.getColumn("U/MEDIDA").setPreferredWidth(20);
+        tblRecibos.getColumn("U/MEDIDA").setWidth(20);
+        tblRecibos.getColumn("U/MEDIDA").setPreferredWidth(20);
 
-        tblFacturas.getColumn("P/UNITARIO").setWidth(20);
-        tblFacturas.getColumn("P/UNITARIO").setPreferredWidth(20);
+        tblRecibos.getColumn("P/UNITARIO").setWidth(20);
+        tblRecibos.getColumn("P/UNITARIO").setPreferredWidth(20);
 
-        tblFacturas.getColumn("TOTAL").setWidth(20);
-        tblFacturas.getColumn("TOTAL").setPreferredWidth(20);
+        tblRecibos.getColumn("TOTAL").setWidth(20);
+        tblRecibos.getColumn("TOTAL").setPreferredWidth(20);
+        
+        tblRecibos.getColumn("LÍNEA").setWidth(20);
+        tblRecibos.getColumn("LÍNEA").setPreferredWidth(20);
         
     }
 
@@ -62,45 +65,43 @@ public class FrmDetalleFacturas extends javax.swing.JDialog {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        txtProveedor = new javax.swing.JTextField();
-        txtTotal = new javax.swing.JTextField();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tblFacturas = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        txtFechaReg = new javax.swing.JTextField();
+        txtPersonaE = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        txtIdFacturas = new javax.swing.JTextField();
-        txtLinea = new javax.swing.JTextField();
+        txtIdRecibos = new javax.swing.JTextField();
+        txtFecha = new javax.swing.JTextField();
+        txtPersonaR = new javax.swing.JTextField();
+        txtTotal = new javax.swing.JTextField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblRecibos = new javax.swing.JTable();
+        jLabel5 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Detalle de Facturas");
-        setPreferredSize(new java.awt.Dimension(675, 592));
+
+        jLabel1.setText("Id:");
+
+        jLabel2.setText("Fecha:");
+
+        jLabel3.setText("Emisor:");
+
+        jLabel4.setText("Receptor:");
 
         txtTotal.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         txtTotal.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
 
-        tblFacturas.setModel(new javax.swing.table.DefaultTableModel(
+        tblRecibos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "CÓDIGO", "DESCRIPCIÓN", "CANTIDAD", "U/MEDIDA", "P/UNITARIO", "TOTAL"
+                "CÓDIGO", "DESCRIPCIÓN", "CANTIDAD", "U/MEDIDA", "P/UNITARIO", "LÍNEA", "TOTAL"
             }
         ));
-        jScrollPane1.setViewportView(tblFacturas);
-
-        jLabel1.setText("Id:");
+        jScrollPane1.setViewportView(tblRecibos);
 
         jLabel5.setText("TOTAL:");
-
-        jLabel2.setText("Línea:");
-
-        jLabel3.setText("Proveedor:");
-
-        jLabel4.setText("Fecha:");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -117,10 +118,10 @@ public class FrmDetalleFacturas extends javax.swing.JDialog {
                             .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtIdFacturas, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtProveedor, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE)
-                            .addComponent(txtLinea)
-                            .addComponent(txtFechaReg))
+                            .addComponent(txtIdRecibos, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtPersonaR, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE)
+                            .addComponent(txtFecha)
+                            .addComponent(txtPersonaE))
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
@@ -138,20 +139,20 @@ public class FrmDetalleFacturas extends javax.swing.JDialog {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(59, 59, 59)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jLabel1)
-                    .addComponent(txtIdFacturas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtIdRecibos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel2)
-                    .addComponent(txtLinea, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel3)
-                    .addComponent(txtProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtPersonaR, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(txtFechaReg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtPersonaE, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(54, 54, 54)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -198,20 +199,20 @@ public class FrmDetalleFacturas extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FrmDetalleFacturas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmDetalleRecibos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FrmDetalleFacturas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmDetalleRecibos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FrmDetalleFacturas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmDetalleRecibos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FrmDetalleFacturas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmDetalleRecibos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                FrmDetalleFacturas dialog = new FrmDetalleFacturas(new javax.swing.JFrame(), true);
+                FrmDetalleRecibos dialog = new FrmDetalleRecibos(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -223,22 +224,24 @@ public class FrmDetalleFacturas extends javax.swing.JDialog {
         });
     }
     
-    public void setFactura(String idfactura, String proveedor, String linea, String fechareg) {
-        txtIdFacturas.setText(idfactura);
-        txtProveedor.setText(proveedor);
-        txtLinea.setText(linea);
-        txtFechaReg.setText(fechareg);
-        mostrardetallefactura(Integer.parseInt(idfactura));
-    }
-
-    private void mostrardetallefactura(int idfactura) {
+    void setFactura(String idrecibo, String fecha, String pentrega, String precibe) {
         
-        miModelo = (DefaultTableModel) tblFacturas.getModel();
-        LDetalleFacturas fun = new LDetalleFacturas();
-        DDetalleFacturas dts = new DDetalleFacturas();
-        dts.setFacturasId(idfactura);
-        miModelo = fun.mostrarDetalleFacturas(dts);
-        tblFacturas.setModel(miModelo);
+        txtIdRecibos.setText(idrecibo);
+        txtFecha.setText(fecha);
+        txtPersonaE.setText(pentrega);
+        txtPersonaR.setText(precibe);
+        mostrardetallerecibos(Integer.parseInt(idrecibo));
+        
+    }
+    
+    private void mostrardetallerecibos(int idrecibo) {
+        
+        miModelo = (DefaultTableModel) tblRecibos.getModel();
+        LDetalleRecibos fun = new LDetalleRecibos();
+        DDetalleRecibos dts = new DDetalleRecibos();
+        dts.setRecibosId(idrecibo);
+        miModelo = fun.mostrarDetalleRecibos(dts);
+        tblRecibos.setModel(miModelo);
         sumarTotal();
         
     }
@@ -248,9 +251,9 @@ public class FrmDetalleFacturas extends javax.swing.JDialog {
         DecimalFormat ft = new DecimalFormat("####.00");
         double totalparcial = 0, totalfinal = 0;
             
-            for(int i = 0; i < tblFacturas.getRowCount(); i++){
+            for(int i = 0; i < tblRecibos.getRowCount(); i++){
                 
-                totalparcial = Double.parseDouble(tblFacturas.getValueAt(i, 5).toString());
+                totalparcial = Double.parseDouble(tblRecibos.getValueAt(i, 6).toString());
                 totalfinal += totalparcial;
                 txtTotal.setText(ft.format(totalfinal));
                 
@@ -266,12 +269,13 @@ public class FrmDetalleFacturas extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tblFacturas;
-    private javax.swing.JTextField txtFechaReg;
-    private javax.swing.JTextField txtIdFacturas;
-    private static javax.swing.JTextField txtLinea;
-    private static javax.swing.JTextField txtProveedor;
+    private javax.swing.JTable tblRecibos;
+    private static javax.swing.JTextField txtFecha;
+    private javax.swing.JTextField txtIdRecibos;
+    private javax.swing.JTextField txtPersonaE;
+    private static javax.swing.JTextField txtPersonaR;
     private javax.swing.JTextField txtTotal;
     // End of variables declaration//GEN-END:variables
- 
+
+    
 }

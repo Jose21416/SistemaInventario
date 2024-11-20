@@ -12,6 +12,7 @@ import java.sql.Date;
  */
 public class DRecibos {
     
+    int IdRecibos;
     Date FechaRecibo;
     String PersonaEntrega;
     String PersonaRecibe;
@@ -20,12 +21,23 @@ public class DRecibos {
         
     }
 
-    public DRecibos(Date FechaRecibo, String PersonaEntrega, String PersonaRecibe) {
+
+    public DRecibos(int IDRecibos, Date FechaRecibo, String PersonaEntrega, String PersonaRecibe) {
+        
+        this.IdRecibos = IdRecibos;
         this.FechaRecibo = FechaRecibo;
         this.PersonaEntrega = PersonaEntrega;
         this.PersonaRecibe = PersonaRecibe;
     }
 
+    public int getIdRecibos() {
+        return IdRecibos;
+    }
+
+    public void setIdRecibos(int IdRecibos) {
+        this.IdRecibos = IdRecibos;
+    }
+    
     public Date getFechaRecibo() {
         return FechaRecibo;
     }

@@ -26,6 +26,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Detalle de recibos"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ItemDRecibosActionPerformed"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>

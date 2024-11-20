@@ -10,7 +10,6 @@ import Datos.DRecibos;
 import Logica.LAlmacen;
 import Logica.LDetalleRecibos;
 import Logica.LRecibos;
-import static Presentacion.FrmFacturas.idlineas;
 import java.awt.Image;
 import java.awt.event.KeyEvent;
 import java.sql.Date;

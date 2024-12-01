@@ -374,6 +374,7 @@ public class FrmUsuarios extends javax.swing.JInternalFrame {
         // TODO add your handling code here:  
         limpiar();
         habilitar(true);
+        mostrarBuscar("");
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
@@ -440,15 +441,8 @@ public class FrmUsuarios extends javax.swing.JInternalFrame {
             dts.setPerfil(perfil);
             
             msg = fun.insertarUsuarios(dts);
-            if(msg.equalsIgnoreCase("si")){
                 
-            JOptionPane.showMessageDialog(rootPane, "Se registró de forma correcta", "Información", JOptionPane.INFORMATION_MESSAGE);
-
-            }else{
-                
-            JOptionPane.showMessageDialog(rootPane, "Ocurrió un problema al registrar", "Información", JOptionPane.ERROR_MESSAGE);
-                
-            }
+            JOptionPane.showMessageDialog(rootPane, msg, "Información", JOptionPane.INFORMATION_MESSAGE);
             
         }else{
             
@@ -463,16 +457,9 @@ public class FrmUsuarios extends javax.swing.JInternalFrame {
             dts.setPerfil(perfil);
             
             msg = fun.editarUsuarios(dts);
-            if(msg.equalsIgnoreCase("si")){
                 
-            JOptionPane.showMessageDialog(rootPane, "Se actualizó de forma correcta", "Información", JOptionPane.INFORMATION_MESSAGE);
-
-            }else{
+            JOptionPane.showMessageDialog(rootPane, msg, "Información", JOptionPane.INFORMATION_MESSAGE);
                 
-            JOptionPane.showMessageDialog(rootPane, "Ocurrió un problema al actualizar", "Información", JOptionPane.ERROR_MESSAGE);
-                
-            }
-            
         }
         
         limpiar();
@@ -494,19 +481,22 @@ public class FrmUsuarios extends javax.swing.JInternalFrame {
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         // TODO add your handling code here:
-        if(!txtId.getText().equals("")){
-            DUsuarios dts = new DUsuarios();
-            LUsuarios fn = new LUsuarios();
-            dts.setIdUsuarios(Integer.parseInt(txtId.getText()));
-            String msg = fn.eliminarUsuarios(dts);
-            if (msg.equalsIgnoreCase("si")){
-                JOptionPane.showMessageDialog(rootPane, "Se eliminó de forma correcta", "Información", JOptionPane.INFORMATION_MESSAGE);
-            }else{
-                JOptionPane.showMessageDialog(rootPane, "Ocurrió un problema al eliminar", "Información", JOptionPane.ERROR_MESSAGE);
+        String msg = null;
+        
+        if(txtId.getText().equals("")){
+            
+            JOptionPane.showMessageDialog(rootPane, "Selecciona un registro de la tabla para eliminar", "Información", JOptionPane.ERROR_MESSAGE);
 
-            }
         }else{
-                JOptionPane.showMessageDialog(rootPane, "Seleccione un usuario para poder eliminar", "Información", JOptionPane.INFORMATION_MESSAGE);
+
+            DUsuarios dts = new DUsuarios ();
+            LUsuarios fun = new LUsuarios ();
+
+            dts.setIdUsuarios(Integer.parseInt(txtId.getText()));
+
+            msg = fun.eliminarUsuarios(dts);
+
+            JOptionPane.showMessageDialog(rootPane, msg, "Información", JOptionPane.INFORMATION_MESSAGE);
         }
         limpiar();
         habilitar(true);

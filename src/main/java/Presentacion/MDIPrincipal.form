@@ -9,11 +9,6 @@
             <Property name="text" type="java.lang.String" value="Consultas"/>
           </Properties>
           <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="ItemReportes">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Reportes"/>
-              </Properties>
-            </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="ItemDetFact">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Detalle de facturas"/>
@@ -41,6 +36,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Respaldar / Restaurar"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ItemDBActionPerformed"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>
@@ -56,11 +54,6 @@
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ItemUsuariosActionPerformed"/>
               </Events>
-            </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="ItemInfo">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Informaci&#xf3;n"/>
-              </Properties>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="ItemLineas">
               <Properties>
@@ -156,10 +149,10 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
                               <Component id="lblHora" max="32767" attributes="0"/>
-                              <Component id="lblUsuario" alignment="0" max="32767" attributes="0"/>
+                              <Component id="lblusuario" alignment="0" max="32767" attributes="0"/>
                               <Component id="lblFecha" alignment="0" max="32767" attributes="0"/>
                           </Group>
-                          <EmptySpace min="0" pref="38" max="32767" attributes="0"/>
+                          <EmptySpace min="0" pref="65" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
@@ -178,7 +171,7 @@
                   <EmptySpace min="-2" pref="81" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="lblUsuario" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="lblusuario" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
@@ -235,20 +228,11 @@
             <Property name="text" type="java.lang.String" value="Fecha:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="lblUsuario">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="jLabel4"/>
-          </Properties>
+        <Component class="javax.swing.JLabel" name="lblusuario">
         </Component>
         <Component class="javax.swing.JLabel" name="lblHora">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="jLabel5"/>
-          </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="lblFecha">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="jLabel6"/>
-          </Properties>
         </Component>
       </SubComponents>
     </Container>
@@ -257,7 +241,7 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <EmptySpace min="0" pref="777" max="32767" attributes="0"/>
+              <EmptySpace min="0" pref="814" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">

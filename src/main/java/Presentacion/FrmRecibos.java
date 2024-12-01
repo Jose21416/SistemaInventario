@@ -35,6 +35,7 @@ public class FrmRecibos extends javax.swing.JInternalFrame {
         habilitar(true);
         
         txtTotal.setEditable(false);
+        lblPersonaE.setVisible(false);
         miModelo = (DefaultTableModel) tblRecibos.getModel();
 
         tblRecibos.getColumn("CÓDIGO").setWidth(15);
@@ -106,6 +107,7 @@ public class FrmRecibos extends javax.swing.JInternalFrame {
         jLabel2 = new javax.swing.JLabel();
         txtTotal = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
+        lblPersonaE = new javax.swing.JLabel();
 
         setClosable(true);
         setIconifiable(true);
@@ -157,6 +159,12 @@ public class FrmRecibos extends javax.swing.JInternalFrame {
 
         jLabel1.setText("Fecha:");
 
+        txtRecibe.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtRecibeActionPerformed(evt);
+            }
+        });
+
         txtBuscar.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtBuscarKeyPressed(evt);
@@ -200,7 +208,9 @@ public class FrmRecibos extends javax.swing.JInternalFrame {
                         .addComponent(jLabel2)
                         .addGap(15, 15, 15)
                         .addComponent(txtRecibe, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(340, Short.MAX_VALUE))
+                .addGap(49, 49, 49)
+                .addComponent(lblPersonaE, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(241, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -208,12 +218,13 @@ public class FrmRecibos extends javax.swing.JInternalFrame {
                 .addGap(62, 62, 62)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
-                    .addComponent(txtFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblPersonaE, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(30, 30, 30)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtRecibe, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
-                .addGap(79, 79, 79)
+                .addGap(66, 66, 66)
                 .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -280,7 +291,7 @@ public class FrmRecibos extends javax.swing.JInternalFrame {
         dd = cal.get(Calendar.DAY_OF_MONTH);
 
         dts.setFechaRecibo(new Date(aa, mm, dd));
-        dts.setPersonaEntrega("Admin");
+        dts.setPersonaEntrega(lblPersonaE.getText());
         dts.setPersonaRecibe(txtRecibe.getText());
 
         int idrec = fn.insertarRecibos(dts);
@@ -393,6 +404,10 @@ public class FrmRecibos extends javax.swing.JInternalFrame {
         
     }//GEN-LAST:event_tblRecibosKeyPressed
 
+    private void txtRecibeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtRecibeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtRecibeActionPerformed
+
     public boolean estaenTabla(String texto) {
 
         boolean res = false;
@@ -458,10 +473,17 @@ public class FrmRecibos extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblPersonaE;
     private javax.swing.JTable tblRecibos;
     private javax.swing.JTextField txtBuscar;
     private com.toedter.calendar.JDateChooser txtFecha;
     private javax.swing.JTextField txtRecibe;
     private javax.swing.JTextField txtTotal;
     // End of variables declaration//GEN-END:variables
+
+    public void setUsuario(String personae) {
+        
+        lblPersonaE.setText(personae);
+        
+    }
 }

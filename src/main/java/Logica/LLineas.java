@@ -79,7 +79,7 @@ public class LLineas {
         
         try {
             
-            CallableStatement cst = cn.prepareCall("{ call sp_editar_lineas(?)}");
+            CallableStatement cst = cn.prepareCall("{ call sp_editar_lineas(?, ?)}");
             cst.setInt(1, misLineas.getId());
             cst.setString(2, misLineas.getLinea());
             

@@ -6,11 +6,23 @@ package Presentacion;
 
 import Logica.LFactura;
 import java.awt.Image;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
-import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import org.apache.poi.ss.usermodel.BorderStyle;
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.FillPatternType;
+import org.apache.poi.ss.usermodel.Font;
+import org.apache.poi.ss.usermodel.IndexedColors;
+import org.apache.poi.xssf.usermodel.XSSFCell;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 /**
  *
@@ -54,6 +66,7 @@ public class FrmDetFacturas extends javax.swing.JInternalFrame {
         tblFacturas = new javax.swing.JTable();
         txtBuscar = new javax.swing.JTextField();
         btnBuscar = new javax.swing.JButton();
+        btnExportar = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(102, 102, 255));
         setBorder(javax.swing.BorderFactory.createTitledBorder("Lista de facturas"));
@@ -80,6 +93,13 @@ public class FrmDetFacturas extends javax.swing.JInternalFrame {
 
         btnBuscar.setText("Buscar");
 
+        btnExportar.setText("Exportar");
+        btnExportar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExportarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -89,22 +109,27 @@ public class FrmDetFacturas extends javax.swing.JInternalFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 607, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnBuscar)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnBuscar))
+                            .addComponent(btnExportar))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(0, 51, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnBuscar))
                 .addGap(14, 14, 14)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnExportar, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -142,9 +167,86 @@ public class FrmDetFacturas extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_tblFacturasMousePressed
 
+    private void btnExportarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportarActionPerformed
+        // TODO add your handling code here:
+        
+        JFileChooser seleccionar = new JFileChooser();
+        int opcion = seleccionar.showSaveDialog(null);
+        if (opcion == JFileChooser.APPROVE_OPTION){
+            
+            String ruta = seleccionar.getSelectedFile().getAbsolutePath();
+            String nombrereporte = ruta+".xlsx";
+            String nombrehoja = "Facturas";
+            XSSFWorkbook libroinventario = new XSSFWorkbook();
+            XSSFSheet hojainventario = libroinventario.createSheet(nombrehoja);
+            
+            String [] titulos = new String [] {"CÓDIGO","PROVEEDOR","LÍNEA","FECHA DE REGISTRO"};
+            
+            Font fontcabecera = libroinventario.createFont();
+            fontcabecera.setBold(true);
+            fontcabecera.setColor(IndexedColors.WHITE.getIndex());
+            
+            CellStyle cscabecera = libroinventario.createCellStyle();
+            cscabecera.setBorderBottom(BorderStyle.THIN);
+            cscabecera.setBorderLeft(BorderStyle.THIN);
+            cscabecera.setBorderRight(BorderStyle.THIN);
+            cscabecera.setBorderTop(BorderStyle.THIN);
+            cscabecera.setFillForegroundColor(IndexedColors.DARK_BLUE.getIndex());
+            cscabecera.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+            cscabecera.setFont(fontcabecera);
+            
+            CellStyle cscontenido = libroinventario.createCellStyle();
+            cscontenido.setBorderBottom(BorderStyle.THIN);
+            cscontenido.setBorderLeft(BorderStyle.THIN);
+            cscontenido.setBorderRight(BorderStyle.THIN);
+            cscontenido.setBorderTop(BorderStyle.THIN);
+            
+            XSSFRow titulo = hojainventario.createRow(0);
+            for(int i = 0; i < titulos.length; i++ ){
+                
+                XSSFCell celda = titulo.createCell(i);
+                celda.setCellValue(titulos[i]);
+                celda.setCellStyle(cscabecera);
+                
+            }
+            
+            int filacontenido = 1;
+            for(int i = 0; i < tblFacturas.getRowCount(); i++){
+                
+                XSSFRow contenido = hojainventario.createRow(filacontenido);
+                filacontenido++;
+                for (int j = 0; j < tblFacturas.getColumnCount(); j++){
+                    
+                    XSSFCell celda = contenido.createCell(j);
+                    celda.setCellValue(tblFacturas.getValueAt(i, j).toString());
+                    celda.setCellStyle(cscontenido);
+                    
+                }
+                
+            }
+            
+            hojainventario.autoSizeColumn(0);
+            hojainventario.autoSizeColumn(1);
+            hojainventario.autoSizeColumn(2);
+            hojainventario.autoSizeColumn(3);
+            try (OutputStream archivo = new FileOutputStream (nombrereporte)){
+                
+                libroinventario.write(archivo);
+                
+            }catch(IOException ex){
+                
+                ex.printStackTrace();
+                
+            }
+            
+        }
+        
+    }//GEN-LAST:event_btnExportarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscar;
+    private javax.swing.JButton btnExportar;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblFacturas;

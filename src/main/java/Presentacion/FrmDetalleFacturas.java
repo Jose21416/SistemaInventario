@@ -6,8 +6,21 @@ package Presentacion;
 
 import Datos.DDetalleFacturas;
 import Logica.LDetalleFacturas;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.text.DecimalFormat;
+import javax.swing.JFileChooser;
 import javax.swing.table.DefaultTableModel;
+import org.apache.poi.ss.usermodel.BorderStyle;
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.FillPatternType;
+import org.apache.poi.ss.usermodel.Font;
+import org.apache.poi.ss.usermodel.IndexedColors;
+import org.apache.poi.xssf.usermodel.XSSFCell;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 /**
  *
@@ -74,10 +87,12 @@ public class FrmDetalleFacturas extends javax.swing.JDialog {
         jLabel4 = new javax.swing.JLabel();
         txtIdFacturas = new javax.swing.JTextField();
         txtLinea = new javax.swing.JTextField();
+        btnExportar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Detalle de Facturas");
-        setPreferredSize(new java.awt.Dimension(675, 592));
+        setTitle("Detalle de facturas");
+
+        jPanel1.setBackground(new java.awt.Color(153, 153, 255));
 
         txtTotal.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         txtTotal.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
@@ -101,6 +116,13 @@ public class FrmDetalleFacturas extends javax.swing.JDialog {
         jLabel3.setText("Proveedor:");
 
         jLabel4.setText("Fecha:");
+
+        btnExportar.setText("Exportar");
+        btnExportar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExportarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -127,7 +149,8 @@ public class FrmDetalleFacturas extends javax.swing.JDialog {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 627, Short.MAX_VALUE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(btnExportar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jLabel5)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(txtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)))))
@@ -157,8 +180,9 @@ public class FrmDetalleFacturas extends javax.swing.JDialog {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5))
-                .addContainerGap(102, Short.MAX_VALUE))
+                    .addComponent(jLabel5)
+                    .addComponent(btnExportar))
+                .addContainerGap(97, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -180,6 +204,132 @@ public class FrmDetalleFacturas extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnExportarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportarActionPerformed
+        // TODO add your handling code here:
+        
+        JFileChooser seleccionar = new JFileChooser();
+        int opcion = seleccionar.showSaveDialog(null);
+        if (opcion == JFileChooser.APPROVE_OPTION){
+            
+            String ruta = seleccionar.getSelectedFile().getAbsolutePath();
+            String nombrereporte = ruta + " " + txtIdFacturas.getText() + " .xlsx";
+            String nombrehoja = "Detalle factura " + txtIdFacturas.getText();
+            XSSFWorkbook libroinventario = new XSSFWorkbook();
+            XSSFSheet hojainventario = libroinventario.createSheet(nombrehoja);
+            
+            String [] titulos = new String [] {"CÓDIGO","DESCRIPCIÓN","STOCK","UMEDIDA","PUNITARIO","TOTAL"};
+            
+            Font fontcabecera = libroinventario.createFont();
+            fontcabecera.setBold(true);
+            fontcabecera.setColor(IndexedColors.WHITE.getIndex());
+            
+            CellStyle cscabecera = libroinventario.createCellStyle();
+            cscabecera.setBorderBottom(BorderStyle.THIN);
+            cscabecera.setBorderLeft(BorderStyle.THIN);
+            cscabecera.setBorderRight(BorderStyle.THIN);
+            cscabecera.setBorderTop(BorderStyle.THIN);
+            cscabecera.setFillForegroundColor(IndexedColors.DARK_BLUE.getIndex());
+            cscabecera.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+            cscabecera.setFont(fontcabecera);
+            
+            CellStyle csdatos = libroinventario.createCellStyle();
+            csdatos.setBorderBottom(BorderStyle.THIN);
+            
+            
+            CellStyle cscontenido = libroinventario.createCellStyle();
+            cscontenido.setBorderBottom(BorderStyle.THIN);
+            cscontenido.setBorderLeft(BorderStyle.THIN);
+            cscontenido.setBorderRight(BorderStyle.THIN);
+            cscontenido.setBorderTop(BorderStyle.THIN);
+            
+            XSSFRow idfactura = hojainventario.createRow(1);
+            XSSFCell cellfactura1 = idfactura.createCell(0);
+            XSSFCell cellfactura2 = idfactura.createCell(1);
+            cellfactura1.setCellValue("# FACTURA:");
+            cellfactura2.setCellValue(txtIdFacturas.getText());
+            cellfactura2.setCellStyle(csdatos);
+            
+            
+            XSSFRow linea = hojainventario.createRow(3);
+            XSSFCell celllinea1 = linea.createCell(0);
+            XSSFCell celllinea2 = linea.createCell(1);
+            celllinea1.setCellValue("LÍNEA:");
+            celllinea2.setCellValue(txtLinea.getText());
+            celllinea2.setCellStyle(csdatos);
+            
+            XSSFRow proveedor = hojainventario.createRow(5);
+            XSSFCell cellproveedor1 = proveedor.createCell(0);
+            XSSFCell cellproveedor2 = proveedor.createCell(1);
+            cellproveedor1.setCellValue("PROVEEDOR:");
+            cellproveedor2.setCellValue(txtProveedor.getText());
+            cellproveedor2.setCellStyle(csdatos);
+            
+            XSSFRow fecha = hojainventario.createRow(7);
+            XSSFCell cellfecha1 = fecha.createCell(0);
+            XSSFCell cellfecha2 = fecha.createCell(1);
+            cellfecha1.setCellValue("FECHA REG:");
+            cellfecha2.setCellValue(txtFechaReg.getText());
+            cellfecha2.setCellStyle(csdatos);
+            
+            
+            XSSFRow titulo = hojainventario.createRow(10);
+            for(int i = 0; i < titulos.length; i++ ){
+                
+                XSSFCell celda = titulo.createCell(i);
+                celda.setCellValue(titulos[i]);
+                celda.setCellStyle(cscabecera);
+                
+            }
+            
+            int filacontenido = 11;
+            for(int i = 0; i < tblFacturas.getRowCount(); i++){
+                
+                XSSFRow contenido = hojainventario.createRow(filacontenido);
+                filacontenido++;
+                for (int j = 0; j < tblFacturas.getColumnCount(); j++){
+                    
+                    XSSFCell celda = contenido.createCell(j);
+                    celda.setCellValue(tblFacturas.getValueAt(i, j).toString());
+                    celda.setCellStyle(cscontenido);
+                    
+                }
+                
+            }
+            
+            CellStyle csdatos2 = libroinventario.createCellStyle();
+            csdatos2.setBorderBottom(BorderStyle.THIN);
+            csdatos2.setBorderLeft(BorderStyle.THIN);
+            csdatos2.setBorderRight(BorderStyle.THIN);
+            csdatos2.setBorderTop(BorderStyle.THIN);
+            
+            XSSFRow total = hojainventario.createRow(filacontenido+2);
+            XSSFCell celltotal1 = total.createCell(4);
+            XSSFCell celltotal2 = total.createCell(5);
+            celltotal1.setCellValue("Total:");
+            celltotal2.setCellValue(Double.parseDouble(txtTotal.getText()));
+            celltotal2.setCellStyle(csdatos2);
+            
+            hojainventario.autoSizeColumn(0);
+            hojainventario.autoSizeColumn(1);
+            hojainventario.autoSizeColumn(2);
+            hojainventario.autoSizeColumn(3);
+            hojainventario.autoSizeColumn(4);
+            hojainventario.autoSizeColumn(5);
+            
+            try (OutputStream archivo = new FileOutputStream (nombrereporte)){
+                
+                libroinventario.write(archivo);
+                
+            }catch(IOException ex){
+                
+                ex.printStackTrace();
+                
+            }
+            
+        }
+        
+    }//GEN-LAST:event_btnExportarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -259,6 +409,7 @@ public class FrmDetalleFacturas extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnExportar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

@@ -89,7 +89,9 @@
                           <Component id="txtRecibe" min="-2" pref="150" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace pref="340" max="32767" attributes="0"/>
+                  <EmptySpace min="-2" pref="49" max="-2" attributes="0"/>
+                  <Component id="lblPersonaE" min="-2" pref="50" max="-2" attributes="0"/>
+                  <EmptySpace pref="241" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -100,13 +102,14 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                       <Component id="txtFecha" min="-2" max="-2" attributes="0"/>
+                      <Component id="lblPersonaE" min="-2" pref="19" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="txtRecibe" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="79" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="66" max="-2" attributes="0"/>
                   <Component id="txtBuscar" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="jScrollPane1" min="-2" pref="148" max="-2" attributes="0"/>
@@ -229,6 +232,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtRecibe">
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtRecibeActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="txtBuscar">
           <Events>
@@ -248,6 +254,8 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Total:"/>
           </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="lblPersonaE">
         </Component>
       </SubComponents>
     </Container>

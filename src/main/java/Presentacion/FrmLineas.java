@@ -25,7 +25,7 @@ public class FrmLineas extends javax.swing.JInternalFrame {
         initComponents();
         txtId.setEnabled(false);
         limpiar();
-        habilitar(true);
+        habilitar(false);
         mostrarBuscar("");
 
         
@@ -73,11 +73,11 @@ public class FrmLineas extends javax.swing.JInternalFrame {
     }
     
     public void habilitar (boolean b){
-        txtLinea.setEnabled(!b);
-        btnNuevo.setEnabled(b);
-        btnEditar.setEnabled(b);
-        btnGuardar.setEnabled(!b);
-        btnCancelar.setEnabled(!b);
+        txtLinea.setEnabled(b);
+        btnNuevo.setEnabled(!b);
+        btnEditar.setEnabled(!b);
+        btnGuardar.setEnabled(b);
+        btnCancelar.setEnabled(b);
         
     }
     /**
@@ -325,15 +325,8 @@ public class FrmLineas extends javax.swing.JInternalFrame {
             dts.setLinea(txtLinea.getText());
             
             msg = fn.insertarLineas(dts);
-            if(msg.equalsIgnoreCase("si")){
                 
-            JOptionPane.showMessageDialog(rootPane, "Se registró de forma correcta", "Información", JOptionPane.INFORMATION_MESSAGE);
-
-            }else{
-                
-            JOptionPane.showMessageDialog(rootPane, "Ocurrió un problema al registrar", "Información", JOptionPane.ERROR_MESSAGE);
-                
-            }
+            JOptionPane.showMessageDialog(rootPane, msg, "Información", JOptionPane.INFORMATION_MESSAGE);
             
         }else{
             
@@ -344,15 +337,8 @@ public class FrmLineas extends javax.swing.JInternalFrame {
             dts.setLinea(txtLinea.getText());
             
             msg = fn.editarLineas(dts);
-            if(msg.equalsIgnoreCase("si")){
                 
-            JOptionPane.showMessageDialog(rootPane, "Se actualizó de forma correcta", "Información", JOptionPane.INFORMATION_MESSAGE);
-
-            }else{
-                
-            JOptionPane.showMessageDialog(rootPane, "Ocurrió un problema al actualizar", "Información", JOptionPane.ERROR_MESSAGE);
-                
-            }
+            JOptionPane.showMessageDialog(rootPane, msg, "Información", JOptionPane.INFORMATION_MESSAGE);
             
         }
         
@@ -377,12 +363,9 @@ public class FrmLineas extends javax.swing.JInternalFrame {
             DLineas dts = new DLineas();
             dts.setId(Integer.parseInt(txtId.getText()));
             String msg = fn.eliminarLineas(dts);
-            if (msg.equalsIgnoreCase("si")){
-                JOptionPane.showMessageDialog(rootPane, "Se eliminó de forma correcta", "Información", JOptionPane.INFORMATION_MESSAGE);
-            }else{
-                JOptionPane.showMessageDialog(rootPane, "Ocurrió un problema al eliminar", "Información", JOptionPane.ERROR_MESSAGE);
-
-            }
+            
+                JOptionPane.showMessageDialog(rootPane, msg, "Información", JOptionPane.INFORMATION_MESSAGE);
+                
         }else{
                 JOptionPane.showMessageDialog(rootPane, "Seleccione una línea para poder eliminar", "Información", JOptionPane.INFORMATION_MESSAGE);
         }

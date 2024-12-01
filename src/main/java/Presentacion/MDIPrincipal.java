@@ -56,14 +56,10 @@ public class MDIPrincipal extends javax.swing.JFrame {
         Icon icUs = new ImageIcon(imItemUs.getImage().getScaledInstance(26, 26, Image.SCALE_SMOOTH));
         ItemUsuarios.setIcon(icUs);
 
-        ImageIcon imInfo = new ImageIcon(getClass().getClassLoader().getResource("Imagenes/info.png"));
-        Icon icInfo = new ImageIcon(imInfo.getImage().getScaledInstance(26, 26, Image.SCALE_SMOOTH));
-        ItemInfo.setIcon(icInfo);
 
         ImageIcon imLineas = new ImageIcon(getClass().getClassLoader().getResource("Imagenes/iconoLineas.png"));
         Icon icLineas = new ImageIcon(imLineas.getImage().getScaledInstance(26, 26, Image.SCALE_SMOOTH));
         ItemLineas.setIcon(icLineas);
-        ItemInfo.setIcon(icInfo);
 
         ImageIcon imProveedores = new ImageIcon(getClass().getClassLoader().getResource("Imagenes/itemProveedores.png"));
         Icon icProveedores = new ImageIcon(imProveedores.getImage().getScaledInstance(26, 26, Image.SCALE_SMOOTH));
@@ -73,9 +69,7 @@ public class MDIPrincipal extends javax.swing.JFrame {
         Icon icItemDB = new ImageIcon(imItemDB.getImage().getScaledInstance(26, 26, Image.SCALE_SMOOTH));
         ItemDB.setIcon(icItemDB);
 
-        ImageIcon imItemReportes = new ImageIcon(getClass().getClassLoader().getResource("Imagenes/FacturasIcono.png"));
-        Icon icReportes = new ImageIcon(imItemReportes.getImage().getScaledInstance(26, 26, Image.SCALE_SMOOTH));
-        ItemReportes.setIcon(icReportes);
+
 
         ImageIcon imDetFac = new ImageIcon(getClass().getClassLoader().getResource("Imagenes/DFacturas.png"));
         Icon icDetFac = new ImageIcon(imDetFac.getImage().getScaledInstance(26, 26, Image.SCALE_SMOOTH));
@@ -129,20 +123,18 @@ public class MDIPrincipal extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        lblUsuario = new javax.swing.JLabel();
+        lblusuario = new javax.swing.JLabel();
         lblHora = new javax.swing.JLabel();
         lblFecha = new javax.swing.JLabel();
         dpnPrincipal = new javax.swing.JDesktopPane();
         jMenuBar1 = new javax.swing.JMenuBar();
         menuConsultas = new javax.swing.JMenu();
-        ItemReportes = new javax.swing.JMenuItem();
         ItemDetFact = new javax.swing.JMenuItem();
         ItemDRecibos = new javax.swing.JMenuItem();
         menuDB = new javax.swing.JMenu();
         ItemDB = new javax.swing.JMenuItem();
         menuHerramientas = new javax.swing.JMenu();
         ItemUsuarios = new javax.swing.JMenuItem();
-        ItemInfo = new javax.swing.JMenuItem();
         ItemLineas = new javax.swing.JMenuItem();
         ItemProveedores = new javax.swing.JMenuItem();
 
@@ -177,12 +169,6 @@ public class MDIPrincipal extends javax.swing.JFrame {
 
         jLabel3.setText("Fecha:");
 
-        lblUsuario.setText("jLabel4");
-
-        lblHora.setText("jLabel5");
-
-        lblFecha.setText("jLabel6");
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -201,9 +187,9 @@ public class MDIPrincipal extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(lblHora, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(lblUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblusuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(lblFecha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(0, 38, Short.MAX_VALUE)))
+                        .addGap(0, 65, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -218,7 +204,7 @@ public class MDIPrincipal extends javax.swing.JFrame {
                 .addGap(81, 81, 81)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(lblUsuario))
+                    .addComponent(lblusuario))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
@@ -234,7 +220,7 @@ public class MDIPrincipal extends javax.swing.JFrame {
         dpnPrincipal.setLayout(dpnPrincipalLayout);
         dpnPrincipalLayout.setHorizontalGroup(
             dpnPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 777, Short.MAX_VALUE)
+            .addGap(0, 814, Short.MAX_VALUE)
         );
         dpnPrincipalLayout.setVerticalGroup(
             dpnPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -242,9 +228,6 @@ public class MDIPrincipal extends javax.swing.JFrame {
         );
 
         menuConsultas.setText("Consultas");
-
-        ItemReportes.setText("Reportes");
-        menuConsultas.add(ItemReportes);
 
         ItemDetFact.setText("Detalle de facturas");
         ItemDetFact.addActionListener(new java.awt.event.ActionListener() {
@@ -267,6 +250,11 @@ public class MDIPrincipal extends javax.swing.JFrame {
         menuDB.setText("Base de datos");
 
         ItemDB.setText("Respaldar / Restaurar");
+        ItemDB.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ItemDBActionPerformed(evt);
+            }
+        });
         menuDB.add(ItemDB);
 
         jMenuBar1.add(menuDB);
@@ -280,9 +268,6 @@ public class MDIPrincipal extends javax.swing.JFrame {
             }
         });
         menuHerramientas.add(ItemUsuarios);
-
-        ItemInfo.setText("Información");
-        menuHerramientas.add(ItemInfo);
 
         ItemLineas.setText("Líneas");
         ItemLineas.addActionListener(new java.awt.event.ActionListener() {
@@ -358,6 +343,9 @@ public class MDIPrincipal extends javax.swing.JFrame {
         }
 
         miRecibo.setVisible(true);
+        
+        miRecibo.setUsuario(lblusuario.getText());
+        miRecibo.show();
     }//GEN-LAST:event_btnRecibosActionPerformed
 
     private void btnFacturasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFacturasActionPerformed
@@ -411,9 +399,13 @@ public class MDIPrincipal extends javax.swing.JFrame {
         miFactura.show();
     }//GEN-LAST:event_ItemDRecibosActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
+    private void ItemDBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ItemDBActionPerformed
+        // TODO add your handling code here:
+        FrmExportarImportarDB midb = new FrmExportarImportarDB();
+        dpnPrincipal.add(midb);
+        midb.show();
+    }//GEN-LAST:event_ItemDBActionPerformed
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -448,15 +440,18 @@ public class MDIPrincipal extends javax.swing.JFrame {
             }
         });
     }
+    
+    /**
+     * @param args the command line arguments
+     */
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem ItemDB;
     private javax.swing.JMenuItem ItemDRecibos;
     private javax.swing.JMenuItem ItemDetFact;
-    private javax.swing.JMenuItem ItemInfo;
     private javax.swing.JMenuItem ItemLineas;
     private javax.swing.JMenuItem ItemProveedores;
-    private javax.swing.JMenuItem ItemReportes;
     private javax.swing.JMenuItem ItemUsuarios;
     private javax.swing.JButton btnAlmacen;
     private javax.swing.JButton btnFacturas;
@@ -469,9 +464,26 @@ public class MDIPrincipal extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lblFecha;
     private javax.swing.JLabel lblHora;
-    private javax.swing.JLabel lblUsuario;
+    private javax.swing.JLabel lblusuario;
     private javax.swing.JMenu menuConsultas;
     private javax.swing.JMenu menuDB;
     private javax.swing.JMenu menuHerramientas;
     // End of variables declaration//GEN-END:variables
+
+    public void setDatos(String usuario, String perfil) {
+        
+        lblusuario.setText(usuario);
+        if (perfil.equals("Empleado")){
+            
+            menuDB.setVisible(false);
+            ItemUsuarios.setVisible(false);
+            
+        }else{
+            
+            menuDB.setVisible(true);
+            ItemUsuarios.setVisible(true);
+            
+        }
+        
+    }
 }
